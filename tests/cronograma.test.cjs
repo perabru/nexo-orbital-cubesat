@@ -15,13 +15,13 @@ assert.equal(M.validDate('2027-02-29'),false);
 assert.equal(M.validDate('2027-13-01'),false);
 assert.equal(M.shift('2027-01-31',1),'2027-02-01');
 assert.equal(M.days('2027-06-01','2027-07-30'),59);
-assert.ok(tasks.filter(t=>!t.optional).every(t=>t.due<='2027-07-30'),'Principal termina até julho');
+assert.ok(tasks.filter(t=>!t.archived&&!t.optional).every(t=>t.start>='2027-02-01'&&t.due<='2027-07-30'),'Principal termina até julho');
 assert.ok(tasks.filter(t=>t.category==='reserva').every(t=>t.start>='2027-08-01'&&t.due<='2027-09-30'),'Reserva em agosto/setembro');
 assert.ok(tasks.filter(t=>t.category==='inic').every(t=>t.start>='2027-06-01'),'Artigo começa em junho');
 assert.equal(tasks.filter(t=>t.category==='monografia').length,18);
 assert.equal(tasks.filter(t=>t.category==='inic').length,9);
 M.assertGraph(tasks);
-const summary=M.summary(tasks,'2027-07-30','2026-10-31');assert.equal(summary.done,2);assert.equal(summary.total,54);assert.equal(summary.reserve,4);assert.equal(summary.percent,4);
+const summary=M.summary(tasks,'2027-07-30','2026-10-31');assert.equal(summary.done,0);assert.equal(summary.total,52);assert.equal(summary.reserve,4);assert.equal(summary.percent,0);
 const p=tasks.find(t=>t.id==='P01');assert.ok(M.completionReason(p,tasks).includes('checklist'));
 assert.throws(()=>M.move(tasks,p.id,'status','done'),/checklist/);
 const done=tasks.map(t=>t.id===p.id?{...t,checklist:t.checklist.map(c=>({...c,done:true}))}:t);
@@ -37,7 +37,7 @@ const moved=M.move(tasks,'P01','category','gestao','G01');assert.equal(moved.fin
 const movedReserve=M.move(tasks,'P01','category','reserva');assert.equal(movedReserve.find(t=>t.id==='P01').optional,true);
 assert.ok(M.csv([{...p,title:'=2+2'}]).includes('"\'=2+2"'),'CSV desarma fórmula');
 const csv=M.csv([{...p,title:'Teste "aspas"; texto'}]);assert.ok(csv.includes('Teste ""aspas""; texto'));
-const ics=M.ics(tasks,seed.project);assert.ok(ics.startsWith('BEGIN:VCALENDAR\r\n'));assert.equal((ics.match(/BEGIN:VEVENT/g)||[]).length,58);
+const ics=M.ics(tasks,seed.project);assert.ok(ics.startsWith('BEGIN:VCALENDAR\r\n'));assert.equal((ics.match(/BEGIN:VEVENT/g)||[]).length,56);
 assert.ok(ics.includes('DTEND;VALUE=DATE:20270731'));
 assert.ok(ics.split('\r\n').every(line=>Buffer.byteLength(line,'utf8')<=75),'ICS dobra linhas longas');
 assert.ok(html.includes('briefing.html'));
@@ -45,3 +45,23 @@ assert.equal((html.match(/@font-face/g)||[]).length,3);
 assert.ok(html.includes('Monografia ABNT')&&html.includes('Artigo INIC'));
 const scripts=[...html.matchAll(/<script>([\s\S]*?)<\/script>/g)];assert.equal(scripts.length,1);for(const s of scripts)new vm.Script(s[1]);
 console.log(seed.project+': datas, grafo, conclusão, filtros, importação, CSV/ICS e sintaxe válidos.');
+
+const project=JSON.parse(html.match(/const PROJECT=([\s\S]+?);\s*\/\* MODEL_START/)[1]);
+assert.equal(project.planStart,'2027-02-01');
+assert.equal(project.planRevision,2);
+assert.equal(tasks.filter(t=>t.archived).length,2);
+const oldP={...p,...project.previousDates.P01,notes:'Nota local preservada',owner:'Pessoa local',status:'doing',checklist:p.checklist.map((c,i)=>({...c,done:i===0}))};
+const changed=M.migratePlan([oldP],project.previousDates,tasks);assert.equal(changed.changed,1);assert.equal(changed.tasks[0].start,p.start);assert.equal(changed.tasks[0].due,p.due);assert.equal(changed.tasks[0].notes,oldP.notes);assert.equal(changed.tasks[0].owner,oldP.owner);assert.equal(changed.tasks[0].status,'doing');assert.equal(changed.tasks[0].checklist[0].done,true);
+const custom={...oldP,start:'2027-02-13',due:'2027-02-25'};assert.equal(M.migratePlan([custom],project.previousDates,tasks).changed,0);
+assert.equal(M.migratePlan(changed.tasks,project.previousDates,tasks).changed,0,'migração idempotente');
+const studyCode=html.match(/\/\* STUDY_MODEL_START \*\/([\s\S]*?)\/\* STUDY_MODEL_END \*\//)[1];const ctx={module:{exports:{}},TextEncoder,Uint8Array,DataView};vm.runInNewContext(studyCode,ctx);const S=ctx.module.exports;
+const study=project.learning;assert.equal(study.modules.length,8);assert.ok(study.resources.length>=15);assert.ok(study.hardware.length>=5);assert.ok(study.files.length>=7);
+const ids=new Set(study.resources.map(r=>r.id)),taskIds=new Set(tasks.map(t=>t.id)),fileIds=new Set(study.files.map(f=>f.name));
+for(const m of study.modules){assert.ok(m.start>='2027-02-01'&&m.due<='2027-07-30');assert.ok(m.topics.length>=4&&m.verify.length>=3);for(const r of m.resources)assert.ok(ids.has(r));for(const t of m.tasks)assert.ok(taskIds.has(t));for(const f of m.files)assert.ok(fileIds.has(f));}
+assert.ok(study.resources.every(r=>r.url.startsWith('https://')));assert.ok(study.files.every(f=>fs.existsSync(path.join(root,f.path))));
+assert.throws(()=>S.progress({schema:1,project:'outro',completed:[]},project.key,study.modules),/outro/);assert.throws(()=>S.progress({schema:1,project:project.key,completed:['E99']},project.key,study.modules),/desconhecidas/);assert.throws(()=>S.progress({schema:1,project:project.key,completed:['E01','E01']},project.key,study.modules),/repetidas/);
+assert.equal(S.progress({schema:1,project:project.key,completed:['E01']},project.key,study.modules).completed[0],'E01');
+assert.ok(S.matches({title:'Detecção e estatística'},'deteccao'));assert.equal(S.matches({title:'Python'},'Blender'),false);
+const zip=S.zip(study.files);assert.equal(new DataView(zip.buffer).getUint32(0,true),0x04034b50);assert.equal(new DataView(zip.buffer).getUint32(zip.length-22,true),0x06054b50);
+const qaRoot=process.env.STUDY_ZIP_TEST_DIR;if(qaRoot){fs.mkdirSync(qaRoot,{recursive:true});fs.writeFileSync(path.join(qaRoot,project.key+'.zip'),zip);}
+console.log(project.key+': revisão de fevereiro, migração, 8 etapas, fontes, arquivos e backup de estudo válidos.');

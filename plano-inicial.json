@@ -1,6 +1,7 @@
 {
   "schema": 1,
   "project": "cubesat",
+  "planRevision": 2,
   "updatedAt": "2026-10-31T16:00:00Z",
   "tasks": [
     {
@@ -30,7 +31,8 @@
       "evidence": "briefing.html",
       "notes": "",
       "createdAt": "2026-10-31T16:00:00Z",
-      "updatedAt": "2026-10-31T16:00:00Z"
+      "updatedAt": "2026-10-31T16:00:00Z",
+      "archived": true
     },
     {
       "id": "H02",
@@ -59,14 +61,15 @@
       "evidence": "https://github.com/perabru/nexo-orbital-cubesat",
       "notes": "",
       "createdAt": "2026-10-31T16:00:00Z",
-      "updatedAt": "2026-10-31T16:00:00Z"
+      "updatedAt": "2026-10-31T16:00:00Z",
+      "archived": true
     },
     {
       "id": "P01",
       "title": "Delimitar a missão de bancada",
       "category": "produto",
-      "start": "2026-11-02",
-      "due": "2026-11-13",
+      "start": "2027-02-01",
+      "due": "2027-02-05",
       "owner": "Informática + Eletrônica",
       "checklist": [
         {
@@ -99,8 +102,8 @@
       "id": "P02",
       "title": "Fechar controlador, sensores e interfaces",
       "category": "produto",
-      "start": "2026-11-16",
-      "due": "2026-11-27",
+      "start": "2027-02-09",
+      "due": "2027-02-15",
       "owner": "Eletrônica",
       "checklist": [
         {
@@ -135,8 +138,8 @@
       "id": "P03",
       "title": "Desenhar estrutura e revisar encaixes",
       "category": "produto",
-      "start": "2026-12-01",
-      "due": "2026-12-18",
+      "start": "2027-02-17",
+      "due": "2027-02-26",
       "owner": "Eletrônica",
       "checklist": [
         {
@@ -169,8 +172,8 @@
       "id": "P04",
       "title": "Especificar a telemetria e o gateway",
       "category": "produto",
-      "start": "2026-12-01",
-      "due": "2026-12-18",
+      "start": "2027-02-17",
+      "due": "2027-02-26",
       "owner": "Informática",
       "checklist": [
         {
@@ -203,8 +206,8 @@
       "id": "P05",
       "title": "Ensaiar alimentação e consumo",
       "category": "produto",
-      "start": "2027-01-18",
-      "due": "2027-02-05",
+      "start": "2027-03-17",
+      "due": "2027-03-26",
       "owner": "Eletrônica",
       "checklist": [
         {
@@ -237,8 +240,8 @@
       "id": "P06",
       "title": "Implementar firmware de aquisição",
       "category": "produto",
-      "start": "2027-01-18",
-      "due": "2027-02-12",
+      "start": "2027-03-17",
+      "due": "2027-03-31",
       "owner": "Informática",
       "checklist": [
         {
@@ -271,8 +274,8 @@
       "id": "P07",
       "title": "Receber pacotes por USB no gateway",
       "category": "produto",
-      "start": "2027-02-08",
-      "due": "2027-02-26",
+      "start": "2027-03-29",
+      "due": "2027-04-08",
       "owner": "Informática",
       "checklist": [
         {
@@ -307,8 +310,8 @@
       "id": "P08",
       "title": "Registrar sessões e exportar arquivos",
       "category": "produto",
-      "start": "2027-02-22",
-      "due": "2027-03-12",
+      "start": "2027-04-05",
+      "due": "2027-04-16",
       "owner": "Informática",
       "checklist": [
         {
@@ -343,8 +346,8 @@
       "id": "P09",
       "title": "Montar painel de telemetria e histórico",
       "category": "produto",
-      "start": "2027-03-01",
-      "due": "2027-03-19",
+      "start": "2027-04-09",
+      "due": "2027-04-20",
       "owner": "Informática",
       "checklist": [
         {
@@ -377,8 +380,8 @@
       "id": "P10",
       "title": "Integrar viewer 360° e subsistemas",
       "category": "produto",
-      "start": "2027-03-15",
-      "due": "2027-04-02",
+      "start": "2027-04-19",
+      "due": "2027-04-28",
       "owner": "Informática + Eletrônica",
       "checklist": [
         {
@@ -413,8 +416,8 @@
       "id": "P11",
       "title": "Conferir arquivos de impressão e montagem",
       "category": "produto",
-      "start": "2027-03-22",
-      "due": "2027-04-09",
+      "start": "2027-04-21",
+      "due": "2027-04-30",
       "owner": "Eletrônica",
       "checklist": [
         {
@@ -449,8 +452,8 @@
       "id": "P12",
       "title": "Executar teste integrado da bancada",
       "category": "produto",
-      "start": "2027-04-05",
-      "due": "2027-04-23",
+      "start": "2027-04-29",
+      "due": "2027-05-07",
       "owner": "Informática + Eletrônica",
       "checklist": [
         {
@@ -483,8 +486,8 @@
       "id": "P13",
       "title": "Testar perda, reinício e reconexão",
       "category": "produto",
-      "start": "2027-04-26",
-      "due": "2027-05-07",
+      "start": "2027-05-11",
+      "due": "2027-05-17",
       "owner": "Informática",
       "checklist": [
         {
@@ -517,7 +520,7 @@
       "id": "P14",
       "title": "Consolidar evidências de desempenho",
       "category": "produto",
-      "start": "2027-05-10",
+      "start": "2027-05-19",
       "due": "2027-05-28",
       "owner": "Informática + Eletrônica",
       "checklist": [
@@ -553,8 +556,8 @@
       "id": "P15",
       "title": "Definir oferta, custo e processo do Nexo Kit",
       "category": "produto",
-      "start": "2027-02-01",
-      "due": "2027-04-16",
+      "start": "2027-03-25",
+      "due": "2027-05-06",
       "owner": "Administração",
       "checklist": [
         {
@@ -587,8 +590,8 @@
       "id": "P16",
       "title": "Produzir marca e campanha com provas",
       "category": "produto",
-      "start": "2027-04-12",
-      "due": "2027-05-21",
+      "start": "2027-05-03",
+      "due": "2027-05-25",
       "owner": "Marketing",
       "checklist": [
         {
@@ -693,8 +696,8 @@
       "id": "M01",
       "title": "Escolher manual institucional e mapa de normas",
       "category": "monografia",
-      "start": "2026-11-02",
-      "due": "2026-11-13",
+      "start": "2027-02-01",
+      "due": "2027-02-05",
       "owner": "Orientação",
       "checklist": [
         {
@@ -727,8 +730,8 @@
       "id": "M02",
       "title": "Montar biblioteca e matriz de referências",
       "category": "monografia",
-      "start": "2026-11-09",
-      "due": "2026-11-27",
+      "start": "2027-02-01",
+      "due": "2027-02-12",
       "owner": "Pesquisa",
       "checklist": [
         {
@@ -763,8 +766,8 @@
       "id": "M03",
       "title": "Redigir introdução, problema e objetivos",
       "category": "monografia",
-      "start": "2026-11-23",
-      "due": "2026-12-11",
+      "start": "2027-02-08",
+      "due": "2027-02-19",
       "owner": "Redação",
       "checklist": [
         {
@@ -799,8 +802,8 @@
       "id": "M04",
       "title": "Escrever fundamentação e trabalhos relacionados",
       "category": "monografia",
-      "start": "2026-12-07",
-      "due": "2027-01-29",
+      "start": "2027-02-15",
+      "due": "2027-03-12",
       "owner": "Pesquisa",
       "checklist": [
         {
@@ -835,8 +838,8 @@
       "id": "M05",
       "title": "Redigir método e protocolo de validação",
       "category": "monografia",
-      "start": "2027-02-01",
-      "due": "2027-02-19",
+      "start": "2027-03-15",
+      "due": "2027-03-26",
       "owner": "Pesquisa + Equipe técnica",
       "checklist": [
         {
@@ -871,8 +874,8 @@
       "id": "M06",
       "title": "Documentar arquitetura e implementação",
       "category": "monografia",
-      "start": "2027-03-01",
-      "due": "2027-03-26",
+      "start": "2027-03-29",
+      "due": "2027-04-23",
       "owner": "Equipe técnica",
       "checklist": [
         {
@@ -907,8 +910,8 @@
       "id": "M07",
       "title": "Conferir o registro dos ensaios",
       "category": "monografia",
-      "start": "2027-04-05",
-      "due": "2027-04-30",
+      "start": "2027-04-26",
+      "due": "2027-05-14",
       "owner": "Pesquisa + Equipe técnica",
       "checklist": [
         {
@@ -943,7 +946,7 @@
       "id": "M08",
       "title": "Redigir resultados a partir de evidências reais",
       "category": "monografia",
-      "start": "2027-05-03",
+      "start": "2027-05-17",
       "due": "2027-05-28",
       "owner": "Pesquisa",
       "checklist": [
@@ -1661,8 +1664,8 @@
       "id": "G01",
       "title": "Formalizar equipe e calendário escolar",
       "category": "gestao",
-      "start": "2026-11-02",
-      "due": "2026-11-06",
+      "start": "2027-02-01",
+      "due": "2027-02-05",
       "owner": "Coordenação + Equipe",
       "checklist": [
         {
@@ -1695,8 +1698,8 @@
       "id": "G02",
       "title": "Revisar recursos, custos e dependências",
       "category": "gestao",
-      "start": "2026-11-09",
-      "due": "2026-11-27",
+      "start": "2027-02-01",
+      "due": "2027-02-12",
       "owner": "Coordenação + Equipe",
       "checklist": [
         {
@@ -1729,8 +1732,8 @@
       "id": "G03",
       "title": "Revisar riscos e condições do estudo",
       "category": "gestao",
-      "start": "2026-11-23",
-      "due": "2026-12-11",
+      "start": "2027-02-08",
+      "due": "2027-02-19",
       "owner": "Coordenação + Equipe",
       "checklist": [
         {
@@ -1763,8 +1766,8 @@
       "id": "G04",
       "title": "Revisão integrada da primeira versão",
       "category": "gestao",
-      "start": "2027-03-22",
-      "due": "2027-03-26",
+      "start": "2027-04-12",
+      "due": "2027-04-16",
       "owner": "Coordenação + Equipe",
       "checklist": [
         {

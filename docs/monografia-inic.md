@@ -24,7 +24,7 @@ O manual da instituição e a orientação definem a aplicação ao trabalho. O 
 
 ### M01 — Escolher manual institucional e mapa de normas
 
-2026-11-02 → 2026-11-13 · Orientação
+2027-02-01 → 2027-02-05 · Orientação
 
 NBR 14724:2024 e demais normas de apoio; conferir atualizações na entrega.
 
@@ -34,7 +34,7 @@ NBR 14724:2024 e demais normas de apoio; conferir atualizações na entrega.
 
 ### M02 — Montar biblioteca e matriz de referências
 
-2026-11-09 → 2026-11-27 · Pesquisa
+2027-02-01 → 2027-02-12 · Pesquisa
 
 NBR 6023:2025; ferramenta de referências não dispensa conferência.
 
@@ -44,7 +44,7 @@ NBR 6023:2025; ferramenta de referências não dispensa conferência.
 
 ### M03 — Redigir introdução, problema e objetivos
 
-2026-11-23 → 2026-12-11 · Redação
+2027-02-08 → 2027-02-19 · Redação
 
 A seção deve explicar por que o projeto existe e qual evidência responderá à pergunta.
 
@@ -54,7 +54,7 @@ A seção deve explicar por que o projeto existe e qual evidência responderá �
 
 ### M04 — Escrever fundamentação e trabalhos relacionados
 
-2026-12-07 → 2027-01-29 · Pesquisa
+2027-02-15 → 2027-03-12 · Pesquisa
 
 Organizar em seções; preservar atribuição das ideias conforme NBR 10520:2023.
 
@@ -64,7 +64,7 @@ Organizar em seções; preservar atribuição das ideias conforme NBR 10520:2023
 
 ### M05 — Redigir método e protocolo de validação
 
-2027-02-01 → 2027-02-19 · Pesquisa + Equipe técnica
+2027-03-15 → 2027-03-26 · Pesquisa + Equipe técnica
 
 Descrever procedimento planejado; atualizar com o que foi efetivamente executado.
 
@@ -74,7 +74,7 @@ Descrever procedimento planejado; atualizar com o que foi efetivamente executado
 
 ### M06 — Documentar arquitetura e implementação
 
-2027-03-01 → 2027-03-26 · Equipe técnica
+2027-03-29 → 2027-04-23 · Equipe técnica
 
 Separar diagrama conceitual de montagem ou serviço implementado.
 
@@ -84,7 +84,7 @@ Separar diagrama conceitual de montagem ou serviço implementado.
 
 ### M07 — Conferir o registro dos ensaios
 
-2027-04-05 → 2027-04-30 · Pesquisa + Equipe técnica
+2027-04-26 → 2027-05-14 · Pesquisa + Equipe técnica
 
 A monografia precisa permitir rastrear a origem dos resultados.
 
@@ -94,7 +94,7 @@ A monografia precisa permitir rastrear a origem dos resultados.
 
 ### M08 — Redigir resultados a partir de evidências reais
 
-2027-05-03 → 2027-05-28 · Pesquisa
+2027-05-17 → 2027-05-28 · Pesquisa
 
 Não preencher resultados faltantes com dados demonstrativos.
 

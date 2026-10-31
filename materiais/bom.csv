@@ -1,0 +1,8 @@
+item,quantidade_planejada,papel,etapa,compatibilidade,modelo_confirmado,preco_cotado_brl,origem_cotacao,data_cotacao
+Computador com USB,1,"Python, CAD, firmware e painel",Essencial,8 GB de RAM são uma referência didática; medir o desempenho do conjunto escolhido.,,,,
+Placa de desenvolvimento ESP32,1,Controlador da bancada,Essencial,"Conferir modelo e pinagem antes do esquema. Bancada didática, sem qualificação de voo.",,,,
+Cabo USB de dados,1,Alimentação e comunicação serial,Essencial,,,,,
+"Protoboard, jumpers e multímetro",1 conjunto,Montagem e conferência elétrica,Essencial,,,,,
+"Módulo BME280 compatível com 3,3 V",1,Exercício de leitura ambiental,Proposto,Confirmar a placa de breakout e suas tensões.,,,,
+"Base, fixadores e peças impressas",1 conjunto,Estrutura e encaixes,Proposto,Impressora pode ser compartilhada pelo laboratório.,,,,
+Fonte de bancada com limite de corrente,1,Ensaios de consumo,Laboratório,Usar sob o protocolo elétrico do laboratório.,,,,

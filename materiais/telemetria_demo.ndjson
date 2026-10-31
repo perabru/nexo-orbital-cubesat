@@ -1,0 +1,6 @@
+{"session": "DEMO-01", "seq": 0, "t_utc": "2027-02-01T12:00:00Z", "sensor": "temperatura_demo", "value": 24.0, "unit": "degC", "origin": "synthetic"}
+{"session": "DEMO-01", "seq": 1, "t_utc": "2027-02-01T12:00:01Z", "sensor": "temperatura_demo", "value": 24.2, "unit": "degC", "origin": "synthetic"}
+{"session": "DEMO-01", "seq": 2, "t_utc": "2027-02-01T12:00:02Z", "sensor": "temperatura_demo", "value": 24.4, "unit": "degC", "origin": "synthetic"}
+{"session": "DEMO-01", "seq": 3, "t_utc": "2027-02-01T12:00:03Z", "sensor": "temperatura_demo", "value": 24.6, "unit": "degC", "origin": "synthetic"}
+{"session": "DEMO-01", "seq": 4, "t_utc": "2027-02-01T12:00:04Z", "sensor": "temperatura_demo", "value": 24.8, "unit": "degC", "origin": "synthetic"}
+{"session": "DEMO-01", "seq": 5, "t_utc": "2027-02-01T12:00:05Z", "sensor": "temperatura_demo", "value": 25.0, "unit": "degC", "origin": "synthetic"}

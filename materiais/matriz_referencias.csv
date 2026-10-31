@@ -1,0 +1,20 @@
+id,titulo,autor_instituicao,ano,url,acesso_em,afirmacao_sustentada,limite,licenca
+git,Pro Git em português,Git / autores do Pro Git,,https://git-scm.com/book/pt-br/v2,2026-10-31,,,Leitura gratuita
+nasa,Small Spacecraft Systems Virtual Institute,NASA,,https://www.nasa.gov/smallsat-institute/,2026-10-31,,,Leitura gratuita
+kicad,KiCad: esquemático e placa,KiCad,,https://docs.kicad.org/,2026-10-31,,,Leitura gratuita
+espidf,ESP-IDF: guia de programação,Espressif,,https://docs.espressif.com/projects/esp-idf/en/stable/esp32/,2026-10-31,,,Leitura gratuita
+bme,BME280: datasheet do fabricante,Bosch Sensortec,,https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf,2026-10-31,,,Leitura gratuita
+python,Tutorial oficial de Python,Python Software Foundation,,https://docs.python.org/pt-br/3/tutorial/,2026-10-31,,,Leitura gratuita
+serial,pySerial: comunicação serial,pySerial,,https://pyserial.readthedocs.io/en/latest/,2026-10-31,,,Leitura gratuita
+fastapi,FastAPI: tutorial guiado,FastAPI,,https://fastapi.tiangolo.com/tutorial/,2026-10-31,,,Leitura gratuita
+freecad,Documentação do FreeCAD,FreeCAD,,https://github.com/FreeCAD/FreeCAD-documentation,2026-10-31,,,Leitura gratuita
+three,Three.js: documentação,Three.js,,https://threejs.org/docs/,2026-10-31,,,Leitura gratuita
+gltf,Registro oficial glTF,Khronos Group,,https://registry.khronos.org/glTF/,2026-10-31,,,Leitura gratuita
+postgres,PostgreSQL: tutorial,PostgreSQL Global Development Group,,https://www.postgresql.org/docs/current/tutorial.html,2026-10-31,,,Leitura gratuita
+react,React: primeiros componentes,React,,https://react.dev/learn,2026-10-31,,,Leitura gratuita
+celery,Celery: tarefas em segundo plano,Celery,,https://docs.celeryq.dev/en/stable/,2026-10-31,,,Leitura gratuita
+tests,Playwright: primeiros testes,Playwright / Microsoft,,https://playwright.dev/docs/intro,2026-10-31,,,Leitura gratuita
+docker,Docker Compose: primeiro projeto,Docker,,https://docs.docker.com/compose/gettingstarted/,2026-10-31,,,Leitura gratuita
+zotero,Zotero: guia inicial,Zotero,,https://www.zotero.org/support/quick_start_guide,2026-10-31,,,Leitura gratuita
+abnt,Normas e guias de normalização,Sistema Integrado de Bibliotecas / UFES,,https://biblioteca.ufes.br/normalizacao,2026-10-31,,,Leitura gratuita
+inic,INIC: modelo e submissão,UNIVAP / INIC,,https://www.univap.br/inic/submissao_trabalhos.php,2026-10-31,,,Leitura gratuita

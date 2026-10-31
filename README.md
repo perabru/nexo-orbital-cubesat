@@ -4,13 +4,26 @@
 
 # NEXO ORBITAL · Cronograma 2027
 
-**Quadro interativo · Monografia ABNT · Artigo INIC**
+**Quadro interativo · Trilha de estudos · Monografia ABNT · Artigo INIC**
 
-Entrega principal em **30 de julho de 2027** · Reserva até **30 de setembro de 2027**
+Início em **1º de fevereiro de 2027** · Entrega principal em **30 de julho de 2027** · Reserva até **30 de setembro de 2027**
 
 [Abrir cronograma ↗](https://perabru.github.io/nexo-orbital-cubesat/) · [Briefing](briefing.html) · [Cronograma completo](docs/cronograma.md) · [Monografia e INIC](docs/monografia-inic.md)
 
 </div>
+
+## Aprender para construir
+
+[**Abrir trilha de estudos ↗**](https://perabru.github.io/nexo-orbital-cubesat/#study)
+
+- 8 etapas entre fevereiro e julho, com prática, critérios e entregas relacionadas.
+- 19 fontes de estudo e 8 arquivos autorais para download.
+- Hardware, BOM, matriz de referências e protocolo de experimento.
+- Progresso local com backup próprio, busca e impressão da trilha.
+
+[Guia completo](docs/trilha-de-estudos.md) · [Baixar kit](materiais/kit-estudos-cubesat.zip) · [Revisão das datas](docs/revisao-fevereiro.md)
+
+O Drive de Pobre foi solicitado e a tentativa de consulta ficou registrada: o catálogo exigiu verificação humana. Nenhum arquivo desse acervo foi validado ou redistribuído. A curadoria usa fontes primárias e exercícios próprios.
 
 ## O planejamento virou a página inicial
 
@@ -28,7 +41,7 @@ As datas do INIC 2027 são **metas internas de prontidão**, sem inventar prazo 
 
 ## Interações disponíveis
 
-- 58 cartões com responsável, início, prazo, prioridade, dependências e critérios de conclusão.
+- 58 registros, sendo 2 históricos arquivados; 56 cartões ativos com responsável, início, prazo, prioridade, dependências e critérios de conclusão.
 - Colunas por frente ou por estado; arrastar e reordenar no computador.
 - Edição pelo teclado e pelo celular; filtros por mês, responsável, estado e texto.
 - Linha do tempo, calendário de entregas e áreas próprias para monografia e artigo.

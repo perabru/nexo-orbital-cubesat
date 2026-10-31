@@ -18,3 +18,10 @@ Desfazer mantém até 20 mudanças durante a sessão. O navegador não substitui
 ## Premissas
 
 Como o pedido foi feito em outubro/2026, julho foi interpretado como julho/2027. O artigo começa em junho/2027. Agosto e setembro são contingência, sem prorrogar a meta principal. O calendário oficial do INIC 2027 será conferido quando divulgado.
+
+
+## Revisão de fevereiro e estudos
+
+O plano ativo começa em 01/02/2027. A atualização migra apenas datas ainda iguais ao padrão anterior e preserva datas personalizadas e demais edições. H01 e H02 ficam arquivados no histórico.
+
+A aba **Trilha de estudos** reúne roteiro, materiais, hardware e arquivos. Marcar uma etapa registra autoavaliação; o avanço não conclui cartões do produto automaticamente. Use o backup próprio da trilha para transferir esse progresso. O kit pode ser baixado pelo site sem internet, pois seus arquivos de texto estão incorporados ao HTML.

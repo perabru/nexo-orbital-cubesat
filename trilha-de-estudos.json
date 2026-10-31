@@ -1,0 +1,654 @@
+{
+  "title": "Do primeiro pacote ao painel de missão.",
+  "modules": [
+    {
+      "title": "Definir missão, versões e evidências",
+      "hours": 6,
+      "topics": [
+        "Missão de bancada",
+        "Requisitos verificáveis",
+        "Git",
+        "Diário de bordo"
+      ],
+      "practice": "Escrever o que o CubeSat demonstrará e criar uma versão do repositório com critérios de aceitação.",
+      "verify": [
+        "Missão delimitada",
+        "Três critérios mensuráveis",
+        "Commit identificado"
+      ],
+      "resources": [
+        "git",
+        "nasa"
+      ],
+      "tasks": [
+        "P01",
+        "G01"
+      ],
+      "files": [
+        "diario_de_bordo.csv",
+        "protocolo_experimento.md"
+      ],
+      "id": "E01",
+      "start": "2027-02-01",
+      "due": "2027-02-07",
+      "level": "Base",
+      "prerequisites": []
+    },
+    {
+      "title": "Ler circuitos e datasheets antes da montagem",
+      "hours": 10,
+      "topics": [
+        "Tensão e corrente",
+        "GPIO e barramentos",
+        "Esquemático",
+        "BOM",
+        "Alimentação USB"
+      ],
+      "practice": "Montar o diagrama da bancada no KiCad e conferir as interfaces da placa escolhida.",
+      "verify": [
+        "Tensões registradas",
+        "Sensor identificado",
+        "ERC revisado"
+      ],
+      "resources": [
+        "kicad",
+        "espidf",
+        "bme"
+      ],
+      "tasks": [
+        "P02",
+        "P05"
+      ],
+      "files": [
+        "bom.csv"
+      ],
+      "id": "E02",
+      "start": "2027-02-08",
+      "due": "2027-02-21",
+      "level": "Base",
+      "prerequisites": [
+        "E01"
+      ]
+    },
+    {
+      "title": "Programar a aquisição no ESP32",
+      "hours": 12,
+      "topics": [
+        "C e C++",
+        "FreeRTOS",
+        "Amostragem",
+        "Fila",
+        "Timestamp e sequência"
+      ],
+      "practice": "Executar um exemplo oficial da placa e produzir pacotes com unidade, sequência e indicação da origem do dado.",
+      "verify": [
+        "Pacotes numerados",
+        "Unidades explícitas",
+        "Reinício identificado"
+      ],
+      "resources": [
+        "espidf",
+        "bme"
+      ],
+      "tasks": [
+        "P06"
+      ],
+      "files": [
+        "telemetria_demo.ndjson",
+        "validar_telemetria.py"
+      ],
+      "id": "E03",
+      "start": "2027-02-22",
+      "due": "2027-03-07",
+      "level": "Aplicação",
+      "prerequisites": [
+        "E02"
+      ]
+    },
+    {
+      "title": "Levar pacotes ao Python sem perder a origem",
+      "hours": 12,
+      "topics": [
+        "Python",
+        "Serial",
+        "NDJSON",
+        "Validação",
+        "Checksum e sessão"
+      ],
+      "practice": "Validar o arquivo demonstrativo, introduzir uma linha defeituosa numa cópia e comprovar que ela é recusada.",
+      "verify": [
+        "Arquivo válido aceito",
+        "Linha inválida recusada",
+        "Sessão preservada"
+      ],
+      "resources": [
+        "python",
+        "serial",
+        "fastapi"
+      ],
+      "tasks": [
+        "P04",
+        "P07",
+        "P08"
+      ],
+      "files": [
+        "telemetria_demo.ndjson",
+        "validar_telemetria.py"
+      ],
+      "id": "E04",
+      "start": "2027-03-08",
+      "due": "2027-03-28",
+      "level": "Aplicação",
+      "prerequisites": [
+        "E03"
+      ]
+    },
+    {
+      "title": "Modelar a estrutura e a visão 360°",
+      "hours": 10,
+      "topics": [
+        "Unidades em CAD",
+        "STEP e STL",
+        "Tolerância",
+        "glTF",
+        "Cena 3D"
+      ],
+      "practice": "Construir uma peça paramétrica no FreeCAD e importar uma exportação no visualizador de estudo.",
+      "verify": [
+        "Escala documentada",
+        "Encaixe conferido",
+        "Peça e versão identificadas"
+      ],
+      "resources": [
+        "freecad",
+        "three",
+        "gltf"
+      ],
+      "tasks": [
+        "P03",
+        "P10",
+        "P11"
+      ],
+      "files": [
+        "protocolo_experimento.md"
+      ],
+      "id": "E05",
+      "start": "2027-03-29",
+      "due": "2027-04-18",
+      "level": "Aplicação",
+      "prerequisites": [
+        "E04"
+      ]
+    },
+    {
+      "title": "Construir painel, banco e processamento",
+      "hours": 12,
+      "topics": [
+        "API",
+        "SQL",
+        "React",
+        "WebSocket",
+        "Jobs"
+      ],
+      "practice": "Desenhar o contrato da sessão, armazenar pacotes e mostrar série temporal com reconexão e indicação de falha.",
+      "verify": [
+        "Pacote rastreável",
+        "Histórico consultável",
+        "Falha de comunicação visível"
+      ],
+      "resources": [
+        "postgres",
+        "fastapi",
+        "react",
+        "celery"
+      ],
+      "tasks": [
+        "P09",
+        "P10"
+      ],
+      "files": [
+        "telemetria_demo.ndjson"
+      ],
+      "id": "E06",
+      "start": "2027-04-19",
+      "due": "2027-05-16",
+      "level": "Aplicação",
+      "prerequisites": [
+        "E05"
+      ]
+    },
+    {
+      "title": "Ensaiar falhas, custo e operação",
+      "hours": 10,
+      "topics": [
+        "Teste integrado",
+        "Perdas e reinício",
+        "Reprodução",
+        "Custo",
+        "Manual"
+      ],
+      "practice": "Executar os casos do protocolo e atualizar a BOM com quantidade, preço cotado, origem e data da cotação.",
+      "verify": [
+        "Ensaio repetido",
+        "Falhas registradas",
+        "Custo separado de estimativa"
+      ],
+      "resources": [
+        "tests",
+        "docker",
+        "git"
+      ],
+      "tasks": [
+        "P12",
+        "P13",
+        "P14",
+        "P15",
+        "P17"
+      ],
+      "files": [
+        "bom.csv",
+        "protocolo_experimento.md"
+      ],
+      "id": "E07",
+      "start": "2027-05-17",
+      "due": "2027-05-30",
+      "level": "Validação",
+      "prerequisites": [
+        "E06"
+      ]
+    },
+    {
+      "title": "Transformar evidências em monografia e artigo",
+      "hours": 10,
+      "topics": [
+        "Busca e fichamento",
+        "Método reproduzível",
+        "Figuras e tabelas",
+        "Citações e referências",
+        "Modelo INIC"
+      ],
+      "practice": "Preencher a matriz de referências, redigir um resultado sustentado pelos dados e fechar o primeiro texto integral do artigo em junho.",
+      "verify": [
+        "Cada número tem origem",
+        "Referências revisadas",
+        "Modelo do evento conferido"
+      ],
+      "resources": [
+        "zotero",
+        "abnt",
+        "inic"
+      ],
+      "tasks": [
+        "M08",
+        "M13",
+        "M15",
+        "A01",
+        "A05",
+        "A09"
+      ],
+      "files": [
+        "matriz_referencias.csv",
+        "protocolo_experimento.md"
+      ],
+      "id": "E08",
+      "start": "2027-06-01",
+      "due": "2027-07-16",
+      "level": "Validação",
+      "prerequisites": [
+        "E07"
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "id": "git",
+      "title": "Pro Git em português",
+      "url": "https://git-scm.com/book/pt-br/v2",
+      "source": "Git / autores do Pro Git",
+      "kind": "Livro aberto",
+      "language": "PT-BR",
+      "use": "Commits, branches, revisão e recuperação do trabalho.",
+      "access": "Leitura gratuita",
+      "status": "consultado",
+      "checked": "31/10/2026"
+    },
+    {
+      "id": "nasa",
+      "title": "Small Spacecraft Systems Virtual Institute",
+      "url": "https://www.nasa.gov/smallsat-institute/",
+      "source": "NASA",
+      "kind": "Biblioteca técnica",
+      "language": "EN",
+      "use": "Missão, subsistemas e engenharia de pequenos satélites. Referência para a bancada didática.",
+      "access": "Leitura gratuita",
+      "status": "consultado",
+      "checked": "31/10/2026"
+    },
+    {
+      "id": "kicad",
+      "title": "KiCad: esquemático e placa",
+      "url": "https://docs.kicad.org/",
+      "source": "KiCad",
+      "kind": "Documentação",
+      "language": "EN",
+      "use": "Esquemáticos, símbolos, conexões, ERC e documentação elétrica.",
+      "access": "Leitura gratuita",
+      "status": "consultado",
+      "checked": "31/10/2026"
+    },
+    {
+      "id": "espidf",
+      "title": "ESP-IDF: guia de programação",
+      "url": "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/",
+      "source": "Espressif",
+      "kind": "Documentação",
+      "language": "EN",
+      "use": "Instalação, compilação, FreeRTOS, periféricos e exemplos oficiais.",
+      "access": "Leitura gratuita",
+      "status": "consultado",
+      "checked": "31/10/2026"
+    },
+    {
+      "id": "bme",
+      "title": "BME280: datasheet do fabricante",
+      "url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf",
+      "source": "Bosch Sensortec",
+      "kind": "Datasheet / PDF",
+      "language": "EN",
+      "use": "Tensões, registradores, interfaces e limites do sensor.",
+      "access": "Leitura gratuita",
+      "status": "consultado",
+      "checked": "31/10/2026"
+    },
+    {
+      "id": "python",
+      "title": "Tutorial oficial de Python",
+      "url": "https://docs.python.org/pt-br/3/tutorial/",
+      "source": "Python Software Foundation",
+      "kind": "Documentação",
+      "language": "PT-BR",
+      "use": "Funções, arquivos, exceções, módulos e ambientes. Para quem já conhece lógica.",
+      "access": "Leitura gratuita",
+      "status": "consultado",
+      "checked": "31/10/2026"
+    },
+    {
+      "id": "serial",
+      "title": "pySerial: comunicação serial",
+      "url": "https://pyserial.readthedocs.io/en/latest/",
+      "source": "pySerial",
+      "kind": "Documentação",
+      "language": "EN",
+      "use": "Porta serial, timeout, leitura de linhas e reconexão.",
+      "access": "Leitura gratuita",
+      "status": "consultado",
+      "checked": "31/10/2026"
+    },
+    {
+      "id": "fastapi",
+      "title": "FastAPI: tutorial guiado",
+      "url": "https://fastapi.tiangolo.com/tutorial/",
+      "source": "FastAPI",
+      "kind": "Documentação",
+      "language": "EN",
+      "use": "Rotas, validação, dependências e respostas de API.",
+      "access": "Leitura gratuita",
+      "status": "consultado",
+      "checked": "31/10/2026"
+    },
+    {
+      "id": "freecad",
+      "title": "Documentação do FreeCAD",
+      "url": "https://github.com/FreeCAD/FreeCAD-documentation",
+      "source": "FreeCAD",
+      "kind": "Manual / código",
+      "language": "EN",
+      "use": "Modelagem paramétrica, unidades, montagem e exportação.",
+      "access": "Leitura gratuita",
+      "status": "consultado",
+      "checked": "31/10/2026"
+    },
+    {
+      "id": "three",
+      "title": "Three.js: documentação",
+      "url": "https://threejs.org/docs/",
+      "source": "Three.js",
+      "kind": "Documentação",
+      "language": "EN",
+      "use": "Cena, câmera, controles, materiais e carregamento de glTF.",
+      "access": "Leitura gratuita",
+      "status": "consultado",
+      "checked": "31/10/2026"
+    },
+    {
+      "id": "gltf",
+      "title": "Registro oficial glTF",
+      "url": "https://registry.khronos.org/glTF/",
+      "source": "Khronos Group",
+      "kind": "Especificação / exemplos",
+      "language": "EN",
+      "use": "Estrutura do asset, unidades, materiais e empacotamento GLB.",
+      "access": "Leitura gratuita",
+      "status": "consultado",
+      "checked": "31/10/2026"
+    },
+    {
+      "id": "postgres",
+      "title": "PostgreSQL: tutorial",
+      "url": "https://www.postgresql.org/docs/current/tutorial.html",
+      "source": "PostgreSQL Global Development Group",
+      "kind": "Documentação",
+      "language": "EN",
+      "use": "Tabelas, chaves, joins, consultas e transações.",
+      "access": "Leitura gratuita",
+      "status": "consultado",
+      "checked": "31/10/2026"
+    },
+    {
+      "id": "react",
+      "title": "React: primeiros componentes",
+      "url": "https://react.dev/learn",
+      "source": "React",
+      "kind": "Documentação",
+      "language": "EN",
+      "use": "Estado, componentes, eventos e listas.",
+      "access": "Leitura gratuita",
+      "status": "consultado",
+      "checked": "31/10/2026"
+    },
+    {
+      "id": "celery",
+      "title": "Celery: tarefas em segundo plano",
+      "url": "https://docs.celeryq.dev/en/stable/",
+      "source": "Celery",
+      "kind": "Documentação",
+      "language": "EN",
+      "use": "Workers, filas, repetição e processamento desacoplado.",
+      "access": "Leitura gratuita",
+      "status": "consultado",
+      "checked": "31/10/2026"
+    },
+    {
+      "id": "tests",
+      "title": "Playwright: primeiros testes",
+      "url": "https://playwright.dev/docs/intro",
+      "source": "Playwright / Microsoft",
+      "kind": "Documentação",
+      "language": "EN",
+      "use": "Testes do percurso do usuário e evidências de falha.",
+      "access": "Leitura gratuita",
+      "status": "consultado",
+      "checked": "31/10/2026"
+    },
+    {
+      "id": "docker",
+      "title": "Docker Compose: primeiro projeto",
+      "url": "https://docs.docker.com/compose/gettingstarted/",
+      "source": "Docker",
+      "kind": "Documentação",
+      "language": "EN",
+      "use": "Serviços locais reproduzíveis, volumes e variáveis de ambiente.",
+      "access": "Leitura gratuita",
+      "status": "consultado",
+      "checked": "31/10/2026"
+    },
+    {
+      "id": "zotero",
+      "title": "Zotero: guia inicial",
+      "url": "https://www.zotero.org/support/quick_start_guide",
+      "source": "Zotero",
+      "kind": "Documentação",
+      "language": "EN",
+      "use": "Coleções, metadados, citações e biblioteca compartilhada.",
+      "access": "Leitura gratuita",
+      "status": "consultado",
+      "checked": "31/10/2026"
+    },
+    {
+      "id": "abnt",
+      "title": "Normas e guias de normalização",
+      "url": "https://biblioteca.ufes.br/normalizacao",
+      "source": "Sistema Integrado de Bibliotecas / UFES",
+      "kind": "Guia institucional",
+      "language": "PT-BR",
+      "use": "Conferir normas de apresentação, citações, referências e resumos.",
+      "access": "Leitura gratuita",
+      "status": "consultado",
+      "checked": "31/10/2026"
+    },
+    {
+      "id": "inic",
+      "title": "INIC: modelo e submissão",
+      "url": "https://www.univap.br/inic/submissao_trabalhos.php",
+      "source": "UNIVAP / INIC",
+      "kind": "Modelo institucional",
+      "language": "PT-BR",
+      "use": "Consultar o modelo da edição de 2027 quando divulgado. A consulta atual identifica 2026.",
+      "access": "Leitura gratuita",
+      "status": "consultado",
+      "checked": "31/10/2026"
+    }
+  ],
+  "hardware": [
+    {
+      "name": "Computador com USB",
+      "quantity": 1,
+      "role": "Python, CAD, firmware e painel",
+      "level": "Essencial",
+      "source": "",
+      "note": "8 GB de RAM são uma referência didática; medir o desempenho do conjunto escolhido."
+    },
+    {
+      "name": "Placa de desenvolvimento ESP32",
+      "quantity": 1,
+      "role": "Controlador da bancada",
+      "level": "Essencial",
+      "source": "espidf",
+      "note": "Conferir modelo e pinagem antes do esquema. Bancada didática, sem qualificação de voo."
+    },
+    {
+      "name": "Cabo USB de dados",
+      "quantity": 1,
+      "role": "Alimentação e comunicação serial",
+      "level": "Essencial",
+      "source": "serial",
+      "note": ""
+    },
+    {
+      "name": "Protoboard, jumpers e multímetro",
+      "quantity": "1 conjunto",
+      "role": "Montagem e conferência elétrica",
+      "level": "Essencial",
+      "source": "kicad",
+      "note": ""
+    },
+    {
+      "name": "Módulo BME280 compatível com 3,3 V",
+      "quantity": 1,
+      "role": "Exercício de leitura ambiental",
+      "level": "Proposto",
+      "source": "bme",
+      "note": "Confirmar a placa de breakout e suas tensões."
+    },
+    {
+      "name": "Base, fixadores e peças impressas",
+      "quantity": "1 conjunto",
+      "role": "Estrutura e encaixes",
+      "level": "Proposto",
+      "source": "freecad",
+      "note": "Impressora pode ser compartilhada pelo laboratório."
+    },
+    {
+      "name": "Fonte de bancada com limite de corrente",
+      "quantity": 1,
+      "role": "Ensaios de consumo",
+      "level": "Laboratório",
+      "source": "kicad",
+      "note": "Usar sob o protocolo elétrico do laboratório."
+    }
+  ],
+  "hours": 82,
+  "drive": {
+    "name": "Drive de Pobre",
+    "url": "https://drivedepobre.com/",
+    "status": "Consulta bloqueada por verificação humana",
+    "checked": "31/10/2026",
+    "terms": [
+      "eletrônica básica",
+      "ESP32",
+      "Python serial",
+      "FreeCAD"
+    ],
+    "note": "O catálogo exigiu verificação humana nesta consulta. Nenhum curso ou arquivo do acervo foi validado ou redistribuído. Use os termos como roteiro de busca e confira autoria e permissão na origem. Os materiais desta trilha estão ligados diretamente às fontes e aos exercícios do projeto."
+  },
+  "files": [
+    {
+      "name": "diario_de_bordo.csv",
+      "path": "materiais/diario_de_bordo.csv",
+      "extension": "CSV",
+      "bytes": 99
+    },
+    {
+      "name": "matriz_referencias.csv",
+      "path": "materiais/matriz_referencias.csv",
+      "extension": "CSV",
+      "bytes": 2429
+    },
+    {
+      "name": "bom.csv",
+      "path": "materiais/bom.csv",
+      "extension": "CSV",
+      "bytes": 995
+    },
+    {
+      "name": "protocolo_experimento.md",
+      "path": "materiais/protocolo_experimento.md",
+      "extension": "MD",
+      "bytes": 964
+    },
+    {
+      "name": "telemetria_demo.ndjson",
+      "path": "materiais/telemetria_demo.ndjson",
+      "extension": "NDJSON",
+      "bytes": 900
+    },
+    {
+      "name": "validar_telemetria.py",
+      "path": "materiais/validar_telemetria.py",
+      "extension": "PY",
+      "bytes": 1318
+    },
+    {
+      "name": "LEIA-ME.md",
+      "path": "materiais/LEIA-ME.md",
+      "extension": "MD",
+      "bytes": 1528
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "path": "materiais/SHA256SUMS.txt",
+      "extension": "TXT",
+      "bytes": 594
+    }
+  ]
+}
