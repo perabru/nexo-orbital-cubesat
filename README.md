@@ -8,7 +8,7 @@
 
 Entrega principal em **30 de julho de 2027** · Reserva até **30 de setembro de 2027**
 
-[Quadro](index.html) · [Briefing](briefing.html) · [Cronograma completo](docs/cronograma.md) · [Monografia e INIC](docs/monografia-inic.md)
+[Abrir cronograma ↗](https://perabru.github.io/nexo-orbital-cubesat/) · [Briefing](briefing.html) · [Cronograma completo](docs/cronograma.md) · [Monografia e INIC](docs/monografia-inic.md)
 
 </div>
 
