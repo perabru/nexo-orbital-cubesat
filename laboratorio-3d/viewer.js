@@ -61,6 +61,7 @@ function fitAll(preset='perspective', animate=true) {
   let direction=defaultDirection.clone();
   if(preset==='front')direction.set(0,.13,1).normalize();
   if(preset==='top')direction.set(.001,1,.001).normalize();
+  if(preset==='bottom')direction.set(.001,-1,.001).normalize();
   if(preset==='side')direction.set(1,.12,0).normalize();
   const position=sphere.center.clone().addScaledVector(direction,distance);
   smoothCamera(position,sphere.center,animate?550:0);
@@ -103,7 +104,7 @@ function selectPart(id, focus=false) {
   document.querySelectorAll('.connection-item').forEach(el=>el.setAttribute('aria-pressed','false'));
   $('part-detail').innerHTML=`<span class="detail-kicker">${esc(p.category||'Componente')} · ${String(parts.indexOf(p)+1).padStart(2,'0')}</span><h4>${esc(p.name)}</h4><p>${esc(p.description)}</p>${p.model?`<p class="part-spec">${esc(p.model)}${p.dimensions?`<br>${esc(p.dimensions)}`:''}</p>`:''}<div class="part-actions"><button class="control-button" id="focus-part">${focusIcon}Aproximar</button><button class="control-button" id="isolate-part" aria-pressed="${isolated}">${isolated?'Ver conjunto':'Isolar peça'}</button></div>`;
   $('focus-part').addEventListener('click',focusPart);
-  $('isolate-part').addEventListener('click',()=>{isolated=!isolated;parts.forEach(q=>q.group.visible=!isolated||q===selected);$('isolate-part').textContent=isolated?'Ver conjunto':'Isolar peça';$('isolate-part').setAttribute('aria-pressed',String(isolated));updateWires();fitAll();});
+  $('isolate-part').addEventListener('click',()=>{isolated=!isolated;grid.visible=!isolated;parts.forEach(q=>q.group.visible=!isolated||q===selected);$('isolate-part').textContent=isolated?'Ver conjunto':'Isolar peça';$('isolate-part').setAttribute('aria-pressed',String(isolated));updateWires();fitAll();});
   $('tour-position').textContent=`${String(parts.indexOf(p)+1).padStart(2,'0')} / ${String(parts.length).padStart(2,'0')}`;
   $('selection-announcement').textContent=`${p.name}. ${p.description}`;
   wires.forEach(w=>{w.mesh.material.opacity=.86;});
@@ -117,7 +118,7 @@ function selectConnection(id) {
   wires.forEach(w=>{w.mesh.material.opacity=w.connection===c?1:.15;});
   document.querySelectorAll('.connection-item').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.connection===id)));
   document.querySelectorAll('.part-item').forEach(el=>el.setAttribute('aria-pressed','false'));
-  $('part-detail').innerHTML=`<span class="detail-kicker">${esc(kindName(c.kind))}</span><h4>${esc(c.label)}</h4><p>${esc(c.detail||'')}</p><p class="part-spec">${esc(byId.get(c.from)?.name)}<br>↓<br>${esc(byId.get(c.to)?.name)}</p><p>O traçado acompanha as peças durante a desmontagem. Consulte a tabela abaixo para o sinal e o destino.</p>`;
+  $('part-detail').innerHTML=`<span class="detail-kicker">${esc(kindName(c.kind))}</span><h4>${esc(c.label)}</h4><p>${esc(c.detail||'')}</p><p class="part-spec">${esc(byId.get(c.from)?.name)}<br>↓<br>${esc(byId.get(c.to)?.name)}</p>`;
   $('selection-announcement').textContent=`${c.label}. ${c.detail||''}`;
 }
 function kindName(kind) {return ({power:'Alimentação',ground:'Terra / GND',data:'Dados / sinal',network:'Fluxo de rede',optical:'Caminho óptico'})[kind]||'Conexão';}
@@ -165,9 +166,10 @@ function buildInspector() {
   $('parts-count').textContent=`${parts.length} peças`;
   $('connections-count').textContent=`${connections.length} ligações`;
   $('part-counter').textContent=`${String(parts.length).padStart(2,'0')} COMPONENTES`;
-  $('viewer-status').textContent='3D PRONTO PARA EXPLORAR';
+  $('viewer-status').textContent='MONTAGEM 3D';
   parts.forEach(p=>{const el=document.createElement('button');el.className='part-label';el.textContent=p.name;el.dataset.part=p.id;el.setAttribute('aria-pressed','false');el.hidden=true;el.addEventListener('click',()=>selectPart(p.id));$('label-layer').append(el);labels.push({part:p,element:el});});
   if(model.note){$('model-note-text').textContent=model.note;}
+  $('inspect-pcb')?.setAttribute('title','Isolar a placa de integração e ver seus componentes');
 }
 function setTab(name) {
   ['parts','connections'].forEach(x=>{$(`tab-${x}`).setAttribute('aria-selected',String(name===x));$(`tab-${x}`).tabIndex=name===x?0:-1;});
@@ -180,10 +182,17 @@ function bindControls() {
   $('spin').addEventListener('click',()=>{autoRotate=!autoRotate;controls.autoRotate=autoRotate;setPressed('spin',autoRotate);});
   $('wires').addEventListener('click',()=>{wireVisible=!wireVisible;connectionsRoot.visible=wireVisible;renderDirty=true;setPressed('wires',wireVisible);});
   $('labels').addEventListener('click',()=>{labelsVisible=!labelsVisible;setPressed('labels',labelsVisible);labels.forEach(({element})=>element.hidden=!labelsVisible);});
-  $('reset-view').addEventListener('click',()=>{isolated=false;parts.forEach(p=>p.group.visible=true);updateWires();autoRotate=false;controls.autoRotate=false;setPressed('spin',false);selectedConnection=null;clearBoxes();setExplosion(0);if(selected)selectPart(selected.id);});
+  $('reset-view').addEventListener('click',()=>{grid.visible=true;isolated=false;parts.forEach(p=>p.group.visible=true);updateWires();autoRotate=false;controls.autoRotate=false;setPressed('spin',false);selectedConnection=null;clearBoxes();setExplosion(0);if(selected)selectPart(selected.id);});
   document.querySelectorAll('[data-camera]').forEach(button=>button.addEventListener('click',()=>fitAll(button.dataset.camera)));
   $('zoom-in').addEventListener('click',()=>{camera.position.lerp(controls.target,.15);controls.update();});
   $('zoom-out').addEventListener('click',()=>{camera.position.sub(controls.target).multiplyScalar(1.18).add(controls.target);controls.update();});
+  $('inspect-pcb')?.addEventListener('click',()=>{
+    const pcb=byId.get(config.pcbPart);if(!pcb)return;
+    explosion=0;setExplosion(0,false);parts.forEach(p=>p.group.position.copy(p.home));
+    isolated=true;autoRotate=false;controls.autoRotate=false;setPressed('spin',false);
+    grid.visible=false;setTab('parts');selectPart(pcb.id);fitAll('top');
+    $('assembly-value').textContent='PCB';$('assembly-caption').textContent='PLACA DE INTEGRAÇÃO';
+  });
   const expandViewer=()=>{const expanded=$('lab-frame').classList.toggle('is-expanded');document.body.classList.toggle('viewer-expanded',expanded);setPressed('fullscreen',expanded);resize();fitAll('perspective',false);};
   $('fullscreen').addEventListener('click',expandViewer);
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('lab-frame').classList.contains('is-expanded'))expandViewer();});
@@ -239,17 +248,17 @@ async function init() {
     const { buildProject }=await import('./models.js');
     try { const context=canvas.getContext('webgl2',{antialias:true,alpha:true,preserveDrawingBuffer:true,powerPreference:'high-performance'});if(!context)throw new Error('WebGL 2 indisponível');renderer=new THREE.WebGLRenderer({canvas,context,antialias:true,alpha:true,preserveDrawingBuffer:true,powerPreference:'high-performance'}); }
     catch { const {SoftwareRenderer}=await import('./SoftwareRenderer.js');const replacement=canvas.cloneNode(false);canvas.replaceWith(replacement);canvas=replacement;renderer=new SoftwareRenderer(THREE,{canvas});isSoftware=true; }
-    renderer.setPixelRatio(Math.min(devicePixelRatio,innerWidth<720?1.5:1.8));
+    renderer.setPixelRatio(isSoftware?Math.min(devicePixelRatio,1):Math.min(devicePixelRatio,innerWidth<720?1.5:2));
     if(isSoftware)renderer.setClearAlpha(0);
-    renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.25;
+    renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.08;
     renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
     scene=new THREE.Scene();camera=new THREE.PerspectiveCamera(38,1,.05,2000);
     if(!isSoftware){const pmrem=new THREE.PMREMGenerator(renderer);const room=new RoomEnvironment();scene.environment=pmrem.fromScene(room,.04).texture;room.dispose();pmrem.dispose();scene.environmentIntensity=.8;}
     scene.add(new THREE.HemisphereLight('#e6f0ff','#73839d',2.3));
-    const light=new THREE.DirectionalLight('#fff4df',3.1);light.position.set(18,30,24);light.castShadow=true;light.shadow.mapSize.set(1024,1024);light.shadow.camera.left=-30;light.shadow.camera.right=30;light.shadow.camera.top=30;light.shadow.camera.bottom=-30;light.shadow.normalBias=.06;light.shadow.bias=-.0001;scene.add(light);
+    const light=new THREE.DirectionalLight('#fff4df',3.1);light.position.set(18,30,24);light.castShadow=true;light.shadow.mapSize.set(2048,2048);light.shadow.camera.left=-30;light.shadow.camera.right=30;light.shadow.camera.top=30;light.shadow.camera.bottom=-30;light.shadow.normalBias=.06;light.shadow.bias=-.0001;scene.add(light);
     const rim=new THREE.DirectionalLight('#a4c8ff',2);rim.position.set(-20,15,-15);scene.add(rim);
     const front=new THREE.DirectionalLight('#ffffff',1.2);front.position.set(-15,5,25);scene.add(front);
-    controls=new OrbitControls(camera,canvas);controls.enableDamping=true;controls.dampingFactor=.07;controls.autoRotateSpeed=.6;controls.maxPolarAngle=Math.PI*.94;controls.screenSpacePanning=true;
+    controls=new OrbitControls(camera,canvas);controls.enableDamping=true;controls.dampingFactor=.07;controls.autoRotateSpeed=.6;controls.maxPolarAngle=Math.PI-.001;controls.screenSpacePanning=true;
     controls.addEventListener('start',()=>cameraTween=null);
     model=buildProject(THREE,{...config.colors,fonts:config.fonts});
     if(!model?.parts?.length)throw new Error('O modelo não contém componentes.');

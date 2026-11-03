@@ -1,9 +1,12 @@
+import { RoundedBoxGeometry } from './vendor/RoundedBoxGeometry.js';
+import { makeCarrier } from './pcb-kit.js';
+import { boardSpec } from './pcb-spec.js';
 // Original procedural educational models. Dimensions and layouts are approximate.
 function makeKit(T){
   const mats=new Map();
-  const mat=(color,metal=.0,rough=.55)=>{const key=color+'|'+metal+'|'+rough;if(!mats.has(key))mats.set(key,new T.MeshStandardMaterial({color,metalness:metal,roughness:rough}));return mats.get(key);};
+  const mat=(color,metal=.0,rough=.55)=>{const key=color+'|'+metal+'|'+rough;if(!mats.has(key))mats.set(key,new T.MeshPhysicalMaterial({color,metalness:metal,roughness:rough,clearcoat:metal<.3?.12:0,clearcoatRoughness:.4}));return mats.get(key);};
   const mesh=(g,geo,m,x=0,y=0,z=0)=>{const o=new T.Mesh(geo,typeof m==='string'?mat(m):m);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;g.add(o);return o;};
-  const box=(g,w,h,d,c,x=0,y=0,z=0)=>mesh(g,new T.BoxGeometry(w,h,d),c,x,y,z);
+  const box=(g,w,h,d,c,x=0,y=0,z=0)=>mesh(g,Math.min(w,h,d)>.085?new RoundedBoxGeometry(w,h,d,1,Math.min(.035,w/5,h/5,d/5)):new T.BoxGeometry(w,h,d),c,x,y,z);
   const cyl=(g,r,h,c,x=0,y=0,z=0,n=32)=>mesh(g,new T.CylinderGeometry(r,r,h,n),c,x,y,z);
   function outline(w,d,r){const s=new T.Shape(),x=-w/2,z=-d/2;s.moveTo(x+r,z);s.lineTo(x+w-r,z);s.quadraticCurveTo(x+w,z,x+w,z+r);s.lineTo(x+w,z+d-r);s.quadraticCurveTo(x+w,z+d,x+w-r,z+d);s.lineTo(x+r,z+d);s.quadraticCurveTo(x,z+d,x,z+d-r);s.lineTo(x,z+r);s.quadraticCurveTo(x,z,x+r,z);return s;}
   function slab(g,w,d,h,r,c,x=0,y=0,z=0,holes=[]){const s=outline(w,d,r);for(const q of holes){const p=new T.Path();p.absarc(q[0],q[1],q[2],0,Math.PI*2,true);s.holes.push(p);}const geo=new T.ExtrudeGeometry(s,{depth:h,steps:1,bevelEnabled:true,bevelSize:Math.min(.025,h/5),bevelThickness:Math.min(.02,h/5),bevelSegments:2,curveSegments:8});geo.rotateX(-Math.PI/2);geo.translate(0,-h/2,0);return mesh(g,geo,c,x,y,z);}
@@ -17,11 +20,11 @@ function makeKit(T){
   function cable(g,points,c='#272c35',r=.08){const curve=new T.CatmullRomCurve3(points.map(p=>new T.Vector3(...p)));return mesh(g,new T.TubeGeometry(curve,36,r,8,false),mat(c,.05,.65));}
   function chip(g,w,d,x,z,txt='IC',h=.13,y=.15){slab(g,w,d,h,.035,'#20262d',x,y+h/2,z);const pts=[];for(let i=0;i<6;i++){pts.push([x-w/2-.04,y+.02,z-d*.38+i*d*.152],[x+w/2+.04,y+.02,z-d*.38+i*d*.152]);}instance(g,new T.BoxGeometry(.13,.055,.055),mat('#b9c1c3',.75,.3),pts);label(g,txt,w*.86,d*.7,x,y+h+.006,z,{size:40,fg:'#a5acaa'});}
   function pcb(g,w,d,c='#15453d',hole=true){const holes=hole?[[-w/2+.2,-d/2+.2,.095],[w/2-.2,-d/2+.2,.095],[-w/2+.2,d/2-.2,.095],[w/2-.2,d/2-.2,.095]]:[];slab(g,w,d,.13,.16,mat(c,.15,.62),0,0,0,holes);holes.forEach(p=>ring(g,p[2]+.025,'#bf9c3f',p[0],.076,-p[1],.018));return g;}
-  function headers(g,x,z,n,{dz=.254,y=.15,vertical=true}={}){const pts=[],pads=[];for(let i=0;i<n;i++){pts.push([x,y+.11,z+i*dz]);pads.push([x,.08,z+i*dz]);}box(g,.23,.18,n*dz+.02,'#161b23',x,y,z+(n-1)*dz/2);instance(g,new T.BoxGeometry(.06,.48,.06),mat('#c9ab53',.8,.32),pts);const ringGeo=new T.TorusGeometry(.075,.016,6,12);ringGeo.rotateX(-Math.PI/2);instance(g,ringGeo,mat('#d5b564',.75,.3),pads);}
+  function headers(g,x,z,n,{dz=.254,y=.15,vertical=true}={}){const pts=[],pads=[];for(let i=0;i<n;i++){pts.push([x,y+.11,z+i*dz]);pads.push([x,.08,z+i*dz]);}box(g,.23,.18,n*dz+.02,'#161b23',x,y,z+(n-1)*dz/2);instance(g,new T.BoxGeometry(.06,.48,.06),mat('#c9ab53',.8,.32),pts);instance(g,new T.BoxGeometry(.055,.30,.055),mat('#c1c6c9',.85,.3),pts.map(p=>[p[0],-.10,p[2]]));const ringGeo=new T.TorusGeometry(.075,.016,6,12);ringGeo.rotateX(-Math.PI/2);instance(g,ringGeo,mat('#d5b564',.75,.3),pads);}
   function smd(g,x0,z0,n=12){const caps=[],ends=[];for(let i=0;i<n;i++){const x=x0+(i%4)*.21,z=z0+Math.floor(i/4)*.23;caps.push([x,.13,z]);ends.push([x-.065,.13,z],[x+.065,.13,z]);}instance(g,new T.BoxGeometry(.105,.07,.065),'#b49c72',caps);instance(g,new T.BoxGeometry(.035,.075,.07),mat('#a9afb3',.65,.3),ends);}
   function usb(g,x,y,z,type='C'){const w=type==='C'?.9:.8;slab(g,w,.7,.32,.1,mat('#c3cbd0',.85,.25),x,y,z);box(g,w*.8,.18,.035,'#1b2026',x,y,z-.365);box(g,w*.6,.045,.04,'#55606c',x,y,z-.39);for(let i=0;i<5;i++)box(g,.035,.025,.055,mat('#d9b15a',.7,.3),x-w*.2+i*w*.1,y,z-.41);}
   function led(g,x,z,color='#8ee294'){cyl(g,.055,.055,new T.MeshStandardMaterial({color,emissive:color,emissiveIntensity:.8,roughness:.3}),x,.16,z,12);}
-  function bme(){const g=new T.Group();pcb(g,2.52,1.8,'#136a83');slab(g,.34,.34,.10,.04,mat('#d1ced1',.85,.28),0,.15,0);cyl(g,.025,.01,'#1f2832',0,.21,0,10);chip(g,.25,.30,-.65,-.08,'U2',.08,.08);smd(g,.35,-.2,4);headers(g,0,-.65,1);for(let i=0;i<6;i++){cyl(g,.07,.02,mat('#d1b055',.75,.3),-.65+i*.254,.09,.65,12);cyl(g,.032,.025,'#152735',-.65+i*.254,.105,.65,12);}for(const x of [-1.08,1.08]){box(g,.30,.25,.47,'#eeeade',x,.19,0);box(g,.035,.12,.30,'#34343a',x+Math.sign(x)*.17,.18,0);}label(g,'BME280',1.25,.22,0,.085,-.52,{size:46});label(g,'VIN 3V GND SCK SDO SDI',1.9,.20,0,.085,.40,{size:32});for(let i=0;i<4;i++)trace(g,[[-.70+i*.36,.079,.6],[-.7+i*.36,.079,.35],[-.25+i*.13,.079,.10]]);return g;}
+  function bme(){const g=new T.Group();pcb(g,2.52,1.8,'#136a83');slab(g,.34,.34,.10,.04,mat('#d1ced1',.85,.28),0,.15,0);cyl(g,.025,.01,'#1f2832',0,.21,0,10);chip(g,.25,.30,-.65,-.08,'U2',.08,.08);smd(g,.35,-.2,4);for(let i=0;i<6;i++){cyl(g,.07,.02,mat('#d1b055',.75,.3),-.65+i*.254,.09,.65,12);cyl(g,.032,.025,'#152735',-.65+i*.254,.105,.65,12);}for(let i=0;i<6;i++)box(g,.055,.36,.055,mat('#c3c7c9',.84,.3),-.65+i*.254,-.10,.65);for(const x of [-1.08,1.08]){box(g,.30,.25,.47,'#eeeade',x,.19,0);box(g,.035,.12,.30,'#34343a',x+Math.sign(x)*.17,.18,0);}label(g,'BME280',1.25,.22,0,.085,-.52,{size:46});label(g,'VIN 3V GND SCK SDO SDI',1.9,.20,0,.085,.40,{size:32});for(let i=0;i<4;i++)trace(g,[[-.70+i*.36,.079,.6],[-.7+i*.36,.079,.35],[-.25+i*.13,.079,.10]]);return g;}
   return {mat,mesh,box,cyl,slab,frame,instance,ring,screw,standoff,label,trace,cable,chip,pcb,headers,smd,usb,led,bme};
 }
 
@@ -41,11 +44,8 @@ export function buildProject(THREE,palette={}){
  // The front upper rail is deliberately open for assembly inspection.
  for(const x of [-4.6,4.6]){const beam=box(rails,.20,8.6,.20,mat('#d0aa54',.65,.4),x,4.5,-4.3);beam.rotation.z=x<0?-.14:.14;}
  part('frame','Longarinas e estrutura aberta',rails,[0,.85,0],[0,1.2,-.4],'Quatro longarinas mantêm as plataformas alinhadas. O lado aberto permite estudar o interior sem esconder a eletrônica.','Estrutura didática inspirada no formato CubeSat','Volume de estudo próximo de 100 × 100 × 110 mm; não é padrão de voo.','Estrutura');
- const tray=new T.Group();slab(tray,8.45,7.5,.18,.25,mat('#1c5148',.2,.6),0,0,0,[[-3.8,-3.3,.15],[3.8,-3.3,.15],[-3.8,3.3,.15],[3.8,3.3,.15]]);
- for(const x of [-3.8,3.8])for(const z of [-3.3,3.3])standoff(tray,x,-.50,z,.8);
- for(let i=0;i<8;i++)trace(tray,[[-3.2+i*.8,.105,-2.8],[-3.2+i*.8,.105,2.5]],'#317f66');
- label(tray,'OBC + PAYLOAD  /  3.3V LOGIC',6.8,.36,0,.11,3.1,{size:46});
- part('carrier','Plataforma da eletrônica',tray,[0,4.3,0],[0,2.6,0],'Plataforma de apoio com espaçadores isolantes; organize os cabos e preserve a ventilação do sensor. As trilhas são uma indicação visual, não um projeto de PCB.','Plataforma autoral / protoboard de bancada','Área proposta: 84 × 75 mm.','Montagem');
+ const tray=makeCarrier(T,K,boardSpec);
+ part('carrier','PCB NEXO · carrier I²C',tray,[0,4.3,0],[0,2.6,0],'Soquetes para o DevKitC e o BME280, quatro testpoints e expansão I²C. Furos, vias, ilhas e serigrafia seguem a especificação da placa. Estudo de integração; requer revisão elétrica e mecânica.','NEXO-CARRIER-A · FR4 / 2 camadas','84 × 75 × 1,6 mm · furos M3.','PCB');
  const dev=new T.Group();pcb(dev,2.79,5.48,'#183b35');
  headers(dev,-1.25,-2.286,19);headers(dev,1.25,-2.286,19);
  slab(dev,1.8,2.55,.16,.04,'#1c2429',0,.14,.95);

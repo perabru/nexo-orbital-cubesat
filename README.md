@@ -4,13 +4,21 @@
 
 # NEXO ORBITAL · Cronograma 2027
 
-**Quadro interativo · Trilha de estudos · Monografia ABNT · Artigo INIC**
+**Agenda de entregas · Calendário · Estudos · Monografia e INIC**
 
 Início em **1º de fevereiro de 2027** · Entrega principal em **30 de julho de 2027** · Reserva até **30 de setembro de 2027**
 
-[Abrir cronograma ↗](https://perabru.github.io/nexo-orbital-cubesat/) · [Briefing](briefing.html) · [Cronograma completo](docs/cronograma.md) · [Monografia e INIC](docs/monografia-inic.md)
+[Abrir cronograma ↗](https://perabru.github.io/nexo-orbital-cubesat/) · [Montagem 3D e PCB](laboratorio-3d/) · [Briefing](briefing.html) · [Cronograma completo](docs/cronograma.md) · [Monografia e INIC](docs/monografia-inic.md)
 
 </div>
+
+## Montagem 3D e PCB
+
+[**Abrir montagem 3D ↗**](https://perabru.github.io/nexo-orbital-cubesat/laboratorio-3d/)
+
+Gire a montagem, afaste as peças e selecione componentes para conferir as ligações. A PCB customizada inclui furos, ilhas, vias, conectores, pontos de teste, serigrafia e trilhas identificadas; é uma proposta de integração, sem validação de fabricação.
+
+[Modelos e conteúdo](laboratorio-3d/) · [Guia de manutenção](laboratorio-3d/README.md)
 
 ## Identidade visual 2027
 
@@ -49,9 +57,9 @@ Estrutura editorial inspirada no [Manual de Identidade Visual de São José dos 
 
 O Drive de Pobre foi solicitado e a tentativa de consulta ficou registrada: o catálogo exigiu verificação humana. Nenhum arquivo desse acervo foi validado ou redistribuído. A curadoria usa fontes primárias e exercícios próprios.
 
-## O planejamento virou a página inicial
+## Agenda 2027
 
-O `index.html` é um quadro interativo inspirado no fluxo Kanban. O briefing técnico anterior permanece em [`briefing.html`](briefing.html), com a identidade visual 2027 aplicada e a documentação preservada.
+A página inicial abre em **Entregas**: próxima data, seletor de mês e linhas com data, entrega, responsável e situação. Em **Calendário**, selecione um dia e abra a entrega para marcar o checklist; quadro completo, estudos, documentos e backups ficam em **Mais**.
 
 | Frente | Entrega planejada |
 | --- | --- |
@@ -66,15 +74,15 @@ As datas do INIC 2027 são **metas internas de prontidão**, sem inventar prazo 
 ## Interações disponíveis
 
 - 58 registros, sendo 2 históricos arquivados; 56 cartões ativos com responsável, início, prazo, prioridade, dependências e critérios de conclusão.
-- Colunas por frente ou por estado; arrastar e reordenar no computador.
-- Edição pelo teclado e pelo celular; filtros por mês, responsável, estado e texto.
-- Linha do tempo, calendário de entregas e áreas próprias para monografia e artigo.
-- Checklist, notas, link de evidência, arquivamento reversível e desfazer.
+- Em **Mais → Quadro de tarefas**: colunas por frente ou estado, filtros completos e reordenação no computador.
+- Checklist e edição de prazo e responsável no detalhe da entrega, também pelo celular.
+- Em **Mais**: linha do tempo, estudos, monografia, artigo e responsáveis.
+- Notas, evidências, arquivamento reversível e desfazer.
 - Backup JSON, exportação CSV, calendário ICS e impressão completa.
 
 ## Abra e continue
 
-Baixe o repositório e abra `index.html`. HTML, CSS, JavaScript, fontes e símbolo da marca estão incorporados. Nenhuma instalação é necessária para usar o quadro.
+Baixe o repositório e abra `index.html`. HTML, CSS, JavaScript, fontes e símbolo da marca estão incorporados. Nenhuma instalação é necessária para usar a agenda.
 
 ```bash
 git clone https://github.com/perabru/nexo-orbital-cubesat.git
@@ -97,7 +105,8 @@ O manual institucional e a orientação definem a aplicação final. Este quadro
 
 | Arquivo | Função |
 | --- | --- |
-| [`index.html`](index.html) | Cronograma e quadro interativo |
+| [`index.html`](index.html) | Agenda de entregas e calendário |
+| [`laboratorio-3d/index.html`](laboratorio-3d/index.html) | Montagem 3D e PCB |
 | [`briefing.html`](briefing.html) | Briefing técnico anterior |
 | [`plano-inicial.json`](plano-inicial.json) | Cópia do planejamento original |
 | [`docs/cronograma.md`](docs/cronograma.md) | Inventário das entregas |
@@ -119,31 +128,3 @@ Os testes verificam datas, dependências, importação, conclusão, exportaçõe
 
 Projeto de [Bruno Michel Pera](https://github.com/perabru) · [Créditos e licenças](THIRD_PARTY_NOTICES.md)
 
-
-## Laboratório 3D e construção
-
-[**Abrir montagem interativa e passo a passo**](https://perabru.github.io/nexo-orbital-cubesat/laboratorio-3d/)
-
-Explore dispositivos em 3D com rotação, zoom, seleção de peças, vista desmontada e conexões que acompanham os componentes. O guia reúne etapas de construção, materiais, ligações, ferramentas, critérios de teste e referências técnicas. A apresentação segue a identidade visual do projeto.
-
-[Conteúdo e modelos](laboratorio-3d/) · [Guia de manutenção](laboratorio-3d/README.md)
-
-
-## Cronograma simplificado
-
-A página inicial reúne **Visão geral**, **Entregas por mês** e **Calendário**. Comece pelas próximas ações, abra uma entrega para conferir seu checklist e acompanhe as datas na agenda mensal. O quadro detalhado, as edições e as exportações ficam em **Mais opções**.
-
-O planejamento vai de fevereiro a julho de 2027, com reserva em agosto e setembro e escrita do artigo INIC a partir de junho. Datas e confirmações oficiais do evento devem ser verificadas quando divulgadas.
-
-
-### Prévia do cronograma
-
-![Visão geral com próximas entregas](docs/cronograma-simples.jpg)
-
-### Prévia do calendário
-
-![Calendário e agenda mensal](docs/calendario-entregas.jpg)
-
-### Prévia do laboratório 3D
-
-![CubeSat na vista desmontada](docs/laboratorio-3d.jpg)
