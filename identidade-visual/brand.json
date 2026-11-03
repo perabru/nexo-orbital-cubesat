@@ -1,0 +1,188 @@
+{
+  "slug": "nexo-orbital-cubesat",
+  "name": "NEXO ORBITAL",
+  "short": "Nexo Orbital",
+  "domain": "CubeSat educacional · demonstrador em solo",
+  "tagline": "Uma missão compartilhada.",
+  "concept": [
+    "O encontro entre um cubo e uma órbita traduz a integração entre estrutura, eletrônica, software e comunicação. A marca assume a precisão de um instrumento de bancada e a curiosidade de uma missão espacial.",
+    "O azul profundo organiza a informação, o âmbar destaca decisões e a linha ciano representa telemetria. Diagramas modulares, coordenadas e amplos espaços vazios tornam o projeto reconhecível mesmo sem o logotipo."
+  ],
+  "personality": [
+    "Preciso",
+    "Exploratório",
+    "Colaborativo"
+  ],
+  "colors": {
+    "bg": "#101A31",
+    "panel": "#1B2942",
+    "ink": "#F3F7FB",
+    "muted": "#B8C9DF",
+    "line": "#41516D",
+    "accent": "#F3B544",
+    "second": "#39C5DD",
+    "paper": "#F3F7FB",
+    "dark": "#101A31"
+  },
+  "palette": [
+    {
+      "name": "Azul missão",
+      "hex": "#101A31",
+      "role": "Base institucional, títulos e fundos escuros."
+    },
+    {
+      "name": "Âmbar solar",
+      "hex": "#F3B544",
+      "role": "Foco, chamadas e marcos de entrega; texto escuro sobre a cor."
+    },
+    {
+      "name": "Ciano telemetria",
+      "hex": "#39C5DD",
+      "role": "Linhas de conexão e diagramas; texto escuro sobre a cor."
+    },
+    {
+      "name": "Branco orbital",
+      "hex": "#F3F7FB",
+      "role": "Fundo de documentos e versão negativa da marca."
+    },
+    {
+      "name": "Azul painel",
+      "hex": "#1B2942",
+      "role": "Superfícies de interface e blocos de informação."
+    }
+  ],
+  "fonts": {
+    "display": "Space Grotesk",
+    "body": "DM Sans",
+    "mono": "JetBrains Mono"
+  },
+  "motif": "Órbitas inclinadas, cubos isométricos e coordenadas de missão.",
+  "graphic_rules": [
+    "Usar módulos quadrados e alinhamentos de precisão; evitar cantos excessivamente arredondados.",
+    "Traçar órbitas com uma única linha contínua; manter o cubo como elemento dominante.",
+    "Reservar o âmbar para o ponto de atenção; aplicar ciano nas conexões e na leitura de dados.",
+    "Usar medidas reais ou rotular explicitamente os números ilustrativos."
+  ],
+  "voice": {
+    "do": [
+      "Explicar o que foi montado e medido.",
+      "Identificar versão, unidade e condição do ensaio.",
+      "Valorizar a integração entre os quatro cursos."
+    ],
+    "dont": [
+      "Prometer lançamento ou operação orbital.",
+      "Apresentar simulação como ensaio realizado.",
+      "Usar vocabulário espacial sem explicar a função."
+    ],
+    "example": "Do sensor ao painel: acompanhe a telemetria do nosso demonstrador de bancada."
+  },
+  "applications": [
+    "Slide de arquitetura com subsistemas em quadrícula e linhas ciano.",
+    "Etiqueta do demonstrador com código da peça, revisão e responsável.",
+    "Painel de telemetria com fundo azul, valores monoespaçados e estados textuais."
+  ],
+  "cautions": [
+    "O projeto é um demonstrador educacional em solo; o visual não pode sugerir certificação espacial.",
+    "Resultados de simulação precisam ser identificados como simulados."
+  ],
+  "version": "1.0",
+  "year": 2027,
+  "created": "2026-11-03",
+  "logo": {
+    "concept": "Cubo isométrico envolvido por uma órbita inclinada, com um ponto de missão em âmbar.",
+    "grid": "Módulo de 100 × 100 unidades. Cubo entre x=27–73 e y=23–77, com traço de 5 unidades. Órbita de raios 44 e 22, centrada em (50,50), inclinada em −24°, com traço de 4 unidades. Ponto de missão de raio 6.",
+    "clear_space": "1x em todos os lados; x = 10 unidades do símbolo de 100 × 100. A área externa de proteção não está incluída no arquivo.",
+    "min_width_print_mm": 40,
+    "min_width_digital_px": 180,
+    "symbol_min_px": 32,
+    "symbol_min_print_mm": 10,
+    "unit": 10,
+    "symbol_viewbox": [
+      0,
+      0,
+      100,
+      100
+    ],
+    "positive_colors": [
+      "#101A31",
+      "#B27205"
+    ],
+    "negative_colors": [
+      "#F3F7FB",
+      "#F3B544"
+    ],
+    "horizontal_viewbox": [
+      0,
+      0,
+      393.12,
+      100
+    ],
+    "files": [
+      "assets/marca-horizontal.svg",
+      "assets/marca-negativa.svg",
+      "assets/marca-monocromatica.svg",
+      "assets/marca-vertical.svg",
+      "assets/simbolo.svg",
+      "assets/simbolo-negativo.svg",
+      "assets/simbolo-monocromatico.svg",
+      "assets/padrao.svg"
+    ],
+    "color_rules": "A versão positiva usa #101A31 e #B27205 sobre #F3F7FB. A versão negativa usa #F3F7FB e #F3B544 sobre #101A31. Essas variantes são específicas da marca; não substituir as cores por aproximação. A versão monocromática usa uma única tinta, #101A31."
+  },
+  "font_files": {
+    "display_regular": "fontes/space-grotesk-regular.ttf",
+    "display_bold": "fontes/space-grotesk-bold.ttf",
+    "body_regular": "fontes/dm-sans-regular.ttf",
+    "body_bold": "fontes/dm-sans-bold.ttf",
+    "mono_regular": "fontes/jetbrains-mono-regular.ttf"
+  },
+  "font_web_files": {
+    "display": "fontes/space-grotesk.woff",
+    "body": "fontes/dm-sans.woff",
+    "mono": "fontes/jetbrains-mono.woff"
+  },
+  "contrast_pairs": [
+    {
+      "label": "Texto principal",
+      "foreground": "#F3F7FB",
+      "background": "#101A31",
+      "ratio": 16.07,
+      "minimum": 4.5
+    },
+    {
+      "label": "Texto em painel",
+      "foreground": "#F3F7FB",
+      "background": "#1B2942",
+      "ratio": 13.52,
+      "minimum": 4.5
+    },
+    {
+      "label": "Texto secundário",
+      "foreground": "#B8C9DF",
+      "background": "#101A31",
+      "ratio": 10.26,
+      "minimum": 4.5
+    },
+    {
+      "label": "Chamada principal",
+      "foreground": "#101A31",
+      "background": "#F3B544",
+      "ratio": 9.47,
+      "minimum": 4.5
+    },
+    {
+      "label": "Link de destaque",
+      "foreground": "#F3B544",
+      "background": "#101A31",
+      "ratio": 9.47,
+      "minimum": 4.5
+    }
+  ],
+  "font_weights": {
+    "display_regular": 400,
+    "display_bold": 700,
+    "body_regular": 400,
+    "body_bold": 700,
+    "mono_regular": 400
+  }
+}

@@ -12,6 +12,30 @@ Início em **1º de fevereiro de 2027** · Entrega principal em **30 de julho de
 
 </div>
 
+## Identidade visual 2027
+
+**Uma missão compartilhada.**
+
+O encontro entre um cubo e uma órbita traduz a integração entre estrutura, eletrônica, software e comunicação. A marca assume a precisão de um instrumento de bancada e a curiosidade de uma missão espacial.
+
+**Personalidade:** Preciso · Exploratório · Colaborativo.
+
+[**Explorar o manual visual ↗**](https://perabru.github.io/nexo-orbital-cubesat/identidade-visual/) · [**Baixar guia PDF**](identidade-visual/guia-identidade-visual.pdf) · [**Baixar kit da marca**](identidade-visual/kit-identidade-visual.zip)
+
+O guia reúne conceito, assinaturas, construção, área de proteção, redução mínima, cores, tipografia, fundos, usos incorretos e aplicações. O kit inclui as marcas em SVG, os arquivos de fontes com suas licenças e os dados da identidade.
+
+| Cor | HEX | Aplicação |
+| --- | --- | --- |
+| Azul missão | `#101A31` | Base institucional, títulos e fundos escuros. |
+| Âmbar solar | `#F3B544` | Foco, chamadas e marcos de entrega; texto escuro sobre a cor. |
+| Ciano telemetria | `#39C5DD` | Linhas de conexão e diagramas; texto escuro sobre a cor. |
+| Branco orbital | `#F3F7FB` | Fundo de documentos e versão negativa da marca. |
+| Azul painel | `#1B2942` | Superfícies de interface e blocos de informação. |
+
+**Tipografia:** Space Grotesk nos títulos, DM Sans nos textos e JetBrains Mono nos dados técnicos.
+
+Estrutura editorial inspirada no [Manual de Identidade Visual de São José dos Campos](https://www.sjc.sp.gov.br/media/aqpbdbrj/14448_e_s7_identidade-visual-psjc.pdf). As marcas e aplicações foram desenvolvidas para este projeto.
+
 ## Aprender para construir
 
 [**Abrir trilha de estudos ↗**](https://perabru.github.io/nexo-orbital-cubesat/#study)
@@ -27,7 +51,7 @@ O Drive de Pobre foi solicitado e a tentativa de consulta ficou registrada: o ca
 
 ## O planejamento virou a página inicial
 
-O `index.html` é um quadro interativo inspirado no fluxo Kanban. O briefing técnico anterior permanece em [`briefing.html`](briefing.html), com sua identidade visual e documentação preservadas.
+O `index.html` é um quadro interativo inspirado no fluxo Kanban. O briefing técnico anterior permanece em [`briefing.html`](briefing.html), com a identidade visual 2027 aplicada e a documentação preservada.
 
 | Frente | Entrega planejada |
 | --- | --- |
@@ -50,7 +74,7 @@ As datas do INIC 2027 são **metas internas de prontidão**, sem inventar prazo 
 
 ## Abra e continue
 
-Baixe o repositório e abra `index.html`. HTML, CSS, JavaScript e fontes estão incorporados. Nenhuma instalação é necessária para usar o quadro.
+Baixe o repositório e abra `index.html`. HTML, CSS, JavaScript, fontes e símbolo da marca estão incorporados. Nenhuma instalação é necessária para usar o quadro.
 
 ```bash
 git clone https://github.com/perabru/nexo-orbital-cubesat.git
@@ -68,10 +92,6 @@ A escrita acompanha a pesquisa. Os cartões cobrem estrutura, método, resultado
 O manual institucional e a orientação definem a aplicação final. Este quadro organiza a revisão; não emite certificação automática de conformidade.
 
 [Etapas de escrita, normas e fontes →](docs/monografia-inic.md)
-
-## Identidade preservada
-
-Títulos em **Space Grotesk**, texto em **DM Sans** e dados em **JetBrains Mono**, com fontes incorporadas e licenças preservadas.
 
 ## Arquivos principais
 
