@@ -1,0 +1,379 @@
+{
+  "eyebrow": "NEXO ORBITAL · laboratório de montagem",
+  "headline": "Da bancada à telemetria.",
+  "intro": "Construa um demonstrador educacional com estrutura modular, ESP32 e leitura ambiental. Explore cada peça em 3D e acompanhe o caminho entre o sensor, o firmware e os dados no computador.",
+  "scope": "Montagem de referência em solo: ESP32-DevKitC V4 com ESP32-WROOM-32E e breakout BME280 alimentado em 3,3 V. A geometria explica o conjunto; folgas, furações e encaixes precisam ser medidos na placa adquirida antes de fabricar. Painéis laterais são elementos estruturais visuais, sem geração solar no MVP.",
+  "stats": [
+    {
+      "value": "8",
+      "label": "etapas práticas"
+    },
+    {
+      "value": "I²C",
+      "label": "sensor ambiental"
+    },
+    {
+      "value": "USB",
+      "label": "energia e telemetria"
+    }
+  ],
+  "steps": [
+    {
+      "id": "etapa-1",
+      "title": "Defina o ensaio da missão",
+      "kicker": "Planejar",
+      "body": "Comece com uma pergunta verificável: o sistema consegue registrar temperatura, umidade e pressão, identificar lacunas e repetir a aquisição após reiniciar?",
+      "actions": [
+        "Escolha a placa exata e preencha a BOM com fabricante, revisão, quantidade e função. O roteiro elétrico abaixo vale para o DevKitC V4 indicado.",
+        "Desenhe o fluxo BME280 → ESP32 → USB serial → arquivo bruto → painel. Identifique quem monta, quem programa e quem registra os ensaios.",
+        "Crie um código para cada montagem e sessão. Defina duração, intervalo de aquisição e como marcar leituras inválidas antes de coletar.",
+        "Preencha o protocolo de experimento com um critério mensurável: por exemplo, concluir uma sessão de bancada sem pacotes duplicados e explicar toda lacuna observada."
+      ],
+      "check": "Uma folha de ensaio identifica objetivo, placa, sensor, firmware e critério de aceitação.",
+      "parts": [
+        "frame",
+        "esp32",
+        "bme280"
+      ]
+    },
+    {
+      "id": "etapa-2",
+      "title": "Monte primeiro fora da estrutura",
+      "kicker": "Conferir",
+      "body": "Faça a primeira aquisição em bancada aberta. Assim você consegue verificar a alimentação e corrigir fios antes de encaixar as placas no gabinete.",
+      "actions": [
+        "Com o USB desconectado, instale os conectores e use jumpers curtos. Separe 3V3, GND, SDA e SCL por cor e etiqueta.",
+        "No breakout de referência, ligue 3V3 ao Vin, GND ao GND, GPIO21 ao SDI/SDA e GPIO22 ao SCK/SCL. Consulte a serigrafia: SCK e SDI também são usados pelos fabricantes para o modo I²C.",
+        "Confira se os pull-ups do breakout estão ligados a 3,3 V. Não aplique lógica de 5 V aos GPIO do ESP32.",
+        "Use apenas uma entrada de alimentação do DevKitC por vez; neste MVP, o USB. Confira ausência de curto e a tensão do barramento antes de conectar o sensor."
+      ],
+      "check": "Uma foto e uma tabela registram quatro conexões conferidas; a alimentação medida está dentro da especificação dos módulos.",
+      "parts": [
+        "esp32",
+        "bme280",
+        "usb"
+      ]
+    },
+    {
+      "id": "etapa-3",
+      "title": "Faça a primeira leitura",
+      "kicker": "Programar",
+      "body": "Instale o suporte Espressif para a placa selecionada e a biblioteca Adafruit BME280 com suas dependências. Use o exemplo do fabricante como primeiro teste de hardware.",
+      "actions": [
+        "Selecione a placa e a porta corretas no ambiente de programação. Abra a serial na mesma velocidade configurada no programa.",
+        "Configure explicitamente o I²C do DevKitC: SDA=21, SCL=22. Comece com 100 kHz e confirme o endereço do sensor.",
+        "O breakout Adafruit usa 0x77 por padrão; SDO em GND seleciona 0x76. Se não houver resposta, revise o endereço e a montagem antes de continuar.",
+        "Leia temperatura em °C, umidade relativa em % e pressão em Pa. Registre falha de leitura como estado de erro; não substitua silenciosamente por zero."
+      ],
+      "check": "O sensor é identificado e produz leituras finitas com unidades; desconectar o sensor gera um erro reconhecível.",
+      "parts": [
+        "esp32",
+        "bme280"
+      ],
+      "code": {
+        "language": "cpp",
+        "text": "// Trecho de configuração para o exemplo Adafruit BME280.\n// Requer Wire.h, Adafruit_BME280.h e placa DevKitC correta.\nWire.begin(21, 22);\nWire.setClock(100000);\nbool sensor_ok = bme.begin(0x77, &Wire);\n// Troque para 0x76 somente se a montagem usar esse endereço.\n// Trate sensor_ok == false antes de ler o sensor."
+      }
+    },
+    {
+      "id": "etapa-4",
+      "title": "Transforme leituras em pacotes",
+      "kicker": "Registrar",
+      "body": "A telemetria precisa preservar origem, ordem e contexto. Uma linha JSON por amostra facilita captura, inspeção e reprocessamento.",
+      "actions": [
+        "Acrescente session, seq, tempo monotônico, grandeza, unidade e estado. Gere uma nova sessão a cada reinício e incremente seq a cada aquisição.",
+        "Diferencie o horário do dispositivo do UTC registrado pelo computador. Não invente um UTC preciso se a placa ainda não foi sincronizada.",
+        "Grave o fluxo recebido em arquivo NDJSON antes de montar gráficos. Conte linhas incompletas, repetições e intervalos sem amostras.",
+        "Execute o validador didático do repositório para entender o contrato. Ele aceita apenas o arquivo sintético do exercício; crie um adaptador separado para os seus dados medidos."
+      ],
+      "check": "É possível reconstruir uma sessão pelo arquivo original, incluindo reinícios e perdas.",
+      "parts": [
+        "esp32",
+        "usb"
+      ],
+      "code": {
+        "language": "bash",
+        "text": "cd materiais\npython validar_telemetria.py"
+      }
+    },
+    {
+      "id": "etapa-5",
+      "title": "Ajuste a estrutura à montagem real",
+      "kicker": "Construir",
+      "body": "Use a vista desmontada para entender base, suportes, placas e tampa. O desenho mecânico final deve sair das dimensões e dos conectores reais que a equipe mediu.",
+      "actions": [
+        "Meça comprimento, largura, altura, furos e zona de acesso ao USB. Transfira essas medidas para um modelo paramétrico no CAD.",
+        "Posicione espaçadores isolantes e deixe distância entre soldas e superfícies condutoras. Prenda o cabo para que sua tração não force o conector da placa.",
+        "Reserve ventilação para o BME280 e afaste-o de reguladores quentes. Caso contrário, a própria eletrônica altera a temperatura observada.",
+        "Imprima primeiro uma pequena peça de teste do encaixe. Depois monte base, estrutura, suporte de placas e tampa, conferindo acesso para manutenção."
+      ],
+      "check": "As placas ficam firmes, o USB permanece acessível e a tampa fecha sem pressionar componentes ou fios.",
+      "parts": [
+        "base",
+        "frame",
+        "carrier",
+        "top",
+        "panel-left",
+        "panel-right"
+      ]
+    },
+    {
+      "id": "etapa-6",
+      "title": "Construa o painel de acompanhamento",
+      "kicker": "Integrar",
+      "body": "O painel deve mostrar o estado da aquisição e o histórico, além do valor instantâneo. Faça o recebimento funcionar antes de acrescentar uma API e um banco.",
+      "actions": [
+        "No computador, leia a serial com pySerial e separe captura de apresentação. Um processo lento de gráfico não deve atrasar a gravação do original.",
+        "Valide tipo, unidade, limites do formato e identificação da sessão. Salve as rejeições em um registro com motivo.",
+        "Implemente uma visão com conexão, última amostra, gráfico temporal e contador de perdas. Use intervalos reais no eixo do tempo.",
+        "Quando o piloto local estiver estável, acrescente FastAPI, PostgreSQL e WebSocket conforme o briefing. O site atual é o guia; esses serviços fazem parte do produto a desenvolver."
+      ],
+      "check": "O gráfico pode ser recriado a partir do NDJSON, e uma desconexão aparece claramente na interface.",
+      "parts": [
+        "esp32",
+        "usb"
+      ]
+    },
+    {
+      "id": "etapa-7",
+      "title": "Ensaie energia, falhas e repetição",
+      "kicker": "Validar",
+      "body": "A qualidade do demonstrador aparece quando algo sai do esperado. Compare o comportamento com o protocolo que foi definido antes da aquisição.",
+      "actions": [
+        "Repita sessões com a mesma configuração e registre duração, contagem esperada, contagem recebida e motivo de qualquer diferença.",
+        "Interrompa e reconecte o USB durante um teste controlado. Confira nova sessão, reconexão e preservação do arquivo anterior.",
+        "Compare o sensor com um instrumento de referência disponível, registrando modelo, condições e diferenças; proximidade entre valores não substitui calibração.",
+        "Meça consumo com instrumento adequado e registre o procedimento. Não use a aparência dos painéis 3D como evidência de geração ou autonomia elétrica."
+      ],
+      "check": "O relatório apresenta medições, condições, perdas e limites, com arquivos que permitem repetir a análise.",
+      "parts": [
+        "esp32",
+        "bme280",
+        "usb"
+      ]
+    },
+    {
+      "id": "etapa-8",
+      "title": "Prepare a entrega da equipe",
+      "kicker": "Documentar",
+      "body": "Reúna o que foi construído em uma versão rastreável: hardware, firmware, dados e explicação precisam contar a mesma história.",
+      "actions": [
+        "Exporte CAD técnico e a revisão dos arquivos de impressão. Associe cada peça à BOM e à identificação usada no modelo 3D.",
+        "Registre custos cotados com data e origem. Separe material, horas de trabalho, serviços e custo de reposição.",
+        "Escreva métodos e resultados a partir dos ensaios próprios. Os dados sintéticos do kit servem para aprender a análise.",
+        "Prepare uma demonstração curta: selecionar peça, explicar quatro fios, iniciar coleta, provocar uma falha controlada e recuperar a sessão."
+      ],
+      "check": "Outra equipe consegue localizar a montagem, configurar o ambiente e repetir um ensaio documentado.",
+      "parts": [
+        "frame",
+        "esp32",
+        "bme280"
+      ]
+    }
+  ],
+  "components": [
+    {
+      "name": "Controlador",
+      "model": "ESP32-DevKitC V4 / ESP32-WROOM-32E",
+      "quantity": "1",
+      "role": "Aquisição, identificação das amostras e USB serial.",
+      "selection": "Essencial; conferir revisão e módulo instalado.",
+      "sourceUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html",
+      "sourceLabel": "Guia Espressif"
+    },
+    {
+      "name": "Sensor ambiental",
+      "model": "BME280 em breakout Adafruit 2652 ou equivalente validado",
+      "quantity": "1",
+      "role": "Temperatura, umidade relativa e pressão.",
+      "selection": "Referência em I²C, alimentação e pull-ups a 3,3 V.",
+      "sourceUrl": "https://learn.adafruit.com/adafruit-bme280-humidity-barometric-pressure-temperature-sensor-breakout/arduino-test",
+      "sourceLabel": "Ligação e teste Adafruit"
+    },
+    {
+      "name": "Cabo de dados",
+      "model": "USB adequado ao conector da placa",
+      "quantity": "1",
+      "role": "Energia e transferência serial.",
+      "selection": "Essencial; um cabo apenas de carga não transfere dados.",
+      "sourceUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html",
+      "sourceLabel": "Alimentação do DevKitC"
+    },
+    {
+      "name": "Suporte mecânico",
+      "model": "Base, estrutura, espaçadores e fixadores medidos",
+      "quantity": "1 conjunto",
+      "role": "Fixação e acesso para manutenção.",
+      "selection": "Fabricar após medir as placas; o visualizador não é um gabarito CAD.",
+      "sourceUrl": "https://www.freecad.org/",
+      "sourceLabel": "FreeCAD"
+    },
+    {
+      "name": "Conexões de bancada",
+      "model": "Protoboard e jumpers identificados",
+      "quantity": "1 conjunto",
+      "role": "Montagem inicial e inspeção dos sinais.",
+      "selection": "Evitar fios longos e manter terra comum.",
+      "sourceUrl": "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/i2c.html",
+      "sourceLabel": "Barramento I²C"
+    },
+    {
+      "name": "Computador",
+      "model": "PC com USB e Python",
+      "quantity": "1",
+      "role": "Captura, validação e painel.",
+      "selection": "Use o equipamento disponível; meça o desempenho do piloto.",
+      "sourceUrl": "https://www.python.org/",
+      "sourceLabel": "Python"
+    },
+    {
+      "name": "Instrumentação",
+      "model": "Multímetro; fonte limitada quando prevista no ensaio",
+      "quantity": "1 conjunto",
+      "role": "Conferência elétrica e consumo.",
+      "selection": "A fonte de bancada é alternativa ao USB, nunca alimentação paralela.",
+      "sourceUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html",
+      "sourceLabel": "Opções de alimentação"
+    }
+  ],
+  "connections": [
+    {
+      "to": "BME280 · Vin",
+      "protocol": "3,3 V",
+      "detail": "Breakout de referência alimentado na mesma tensão da lógica; verificar a placa adquirida.",
+      "type": "power",
+      "from": "DevKitC · 3V3"
+    },
+    {
+      "to": "BME280 · GND",
+      "protocol": "Terra comum",
+      "detail": "Referência de alimentação e comunicação.",
+      "type": "ground",
+      "from": "DevKitC · GND"
+    },
+    {
+      "to": "BME280 · SDI / SDA",
+      "protocol": "I²C · dados",
+      "detail": "Configuração explícita de SDA no firmware; pull-up para 3,3 V.",
+      "type": "data",
+      "from": "DevKitC · GPIO21"
+    },
+    {
+      "to": "BME280 · SCK / SCL",
+      "protocol": "I²C · relógio",
+      "detail": "Configuração explícita de SCL; partida sugerida a 100 kHz.",
+      "type": "data",
+      "from": "DevKitC · GPIO22"
+    },
+    {
+      "to": "DevKitC · USB",
+      "protocol": "USB serial + energia",
+      "detail": "Uma única fonte no MVP. A serial envia NDJSON; não representa enlace orbital.",
+      "type": "power",
+      "from": "Computador · USB"
+    }
+  ],
+  "stack": [
+    {
+      "name": "ESP32 + C++",
+      "role": "Firmware de aquisição e estados de falha.",
+      "href": "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/"
+    },
+    {
+      "name": "pySerial + Python",
+      "role": "Captura serial e validação dos pacotes.",
+      "href": "https://pyserial.readthedocs.io/"
+    },
+    {
+      "name": "FastAPI + PostgreSQL",
+      "role": "API e histórico do piloto conectado.",
+      "href": "https://fastapi.tiangolo.com/"
+    },
+    {
+      "name": "FreeCAD + KiCad",
+      "role": "Detalhamento mecânico e esquema elétrico.",
+      "href": "https://www.kicad.org/"
+    }
+  ],
+  "deliverables": [
+    "BOM identificada e esquema elétrico da revisão montada.",
+    "Firmware versionado e procedimento de gravação.",
+    "Arquivos de telemetria, diário e relatório de perdas.",
+    "CAD medido, peças de teste e instrução de montagem.",
+    "Painel demonstrável, monografia e artigo com resultados próprios."
+  ],
+  "checks": [
+    "Quatro ligações do sensor conferidas com alimentação desligada.",
+    "Apenas uma entrada de alimentação do DevKitC em uso.",
+    "Sensor sem resposta é um erro visível, nunca uma leitura zero inventada.",
+    "Reinício abre outra sessão e não duplica amostras.",
+    "Arquivos sintéticos e dados medidos estão identificados separadamente."
+  ],
+  "references": [
+    {
+      "title": "ESP32-DevKitC V4 · Espressif",
+      "url": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html",
+      "why": "Pinagem, conectores e formas de alimentação."
+    },
+    {
+      "title": "Arduino-ESP32 · I²C",
+      "url": "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/i2c.html",
+      "why": "Configuração de SDA/SCL e requisitos do barramento."
+    },
+    {
+      "title": "BME280 · Adafruit",
+      "url": "https://learn.adafruit.com/adafruit-bme280-humidity-barometric-pressure-temperature-sensor-breakout/arduino-test",
+      "why": "Breakout de referência, endereços e teste inicial."
+    },
+    {
+      "title": "ESP-IDF · guia de início",
+      "url": "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/",
+      "why": "Preparação do ambiente de firmware."
+    },
+    {
+      "title": "pySerial",
+      "url": "https://pyserial.readthedocs.io/",
+      "why": "Captura serial no computador."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Este conjunto pode ir para o espaço?",
+      "a": "O escopo deste TCC é um demonstrador educacional em solo. Qualificação de voo, requisitos de lançamento e subsistemas espaciais não são demonstrados por esta montagem."
+    },
+    {
+      "q": "Os painéis laterais alimentam o protótipo?",
+      "a": "No MVP explicado aqui, a alimentação vem do USB. Os painéis do modelo comunicam a arquitetura visual; um subsistema solar exigiria projeto e ensaios próprios."
+    },
+    {
+      "q": "Posso imprimir diretamente a geometria mostrada?",
+      "a": "A cena 3D foi feita para exploração didática. Use as medidas das peças reais para produzir o CAD de fabricação, verificar tolerâncias e testar os encaixes."
+    },
+    {
+      "q": "O validador recebe minha serial real?",
+      "a": "Não. validar_telemetria.py lê o NDJSON sintético que acompanha o kit. Use-o para aprender as verificações e desenvolva o adaptador de aquisição real como etapa do projeto."
+    }
+  ],
+  "downloads": [
+    {
+      "label": "Kit de estudos",
+      "href": "../materiais/kit-estudos-cubesat.zip",
+      "detail": "Dados sintéticos, validador e formulários."
+    },
+    {
+      "label": "BOM editável",
+      "href": "../materiais/bom.csv",
+      "detail": "Preencha modelos, cotação e compatibilidade."
+    },
+    {
+      "label": "Protocolo de ensaio",
+      "href": "../materiais/protocolo_experimento.md",
+      "detail": "Pergunta, método e evidências."
+    },
+    {
+      "label": "Validador de telemetria",
+      "href": "../materiais/validar_telemetria.py",
+      "detail": "Exercício Python já disponível no repositório."
+    }
+  ]
+}

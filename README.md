@@ -118,3 +118,32 @@ Os testes verificam datas, dependências, importação, conclusão, exportaçõe
 ---
 
 Projeto de [Bruno Michel Pera](https://github.com/perabru) · [Créditos e licenças](THIRD_PARTY_NOTICES.md)
+
+
+## Laboratório 3D e construção
+
+[**Abrir montagem interativa e passo a passo**](https://perabru.github.io/nexo-orbital-cubesat/laboratorio-3d/)
+
+Explore dispositivos em 3D com rotação, zoom, seleção de peças, vista desmontada e conexões que acompanham os componentes. O guia reúne etapas de construção, materiais, ligações, ferramentas, critérios de teste e referências técnicas. A apresentação segue a identidade visual do projeto.
+
+[Conteúdo e modelos](laboratorio-3d/) · [Guia de manutenção](laboratorio-3d/README.md)
+
+
+## Cronograma simplificado
+
+A página inicial reúne **Visão geral**, **Entregas por mês** e **Calendário**. Comece pelas próximas ações, abra uma entrega para conferir seu checklist e acompanhe as datas na agenda mensal. O quadro detalhado, as edições e as exportações ficam em **Mais opções**.
+
+O planejamento vai de fevereiro a julho de 2027, com reserva em agosto e setembro e escrita do artigo INIC a partir de junho. Datas e confirmações oficiais do evento devem ser verificadas quando divulgadas.
+
+
+### Prévia do cronograma
+
+![Visão geral com próximas entregas](docs/cronograma-simples.jpg)
+
+### Prévia do calendário
+
+![Calendário e agenda mensal](docs/calendario-entregas.jpg)
+
+### Prévia do laboratório 3D
+
+![CubeSat na vista desmontada](docs/laboratorio-3d.jpg)
